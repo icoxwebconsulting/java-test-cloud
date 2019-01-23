@@ -19,7 +19,6 @@ pipeline {
         stage ('Download Project') {
             steps {
                 git url: 'https://github.com/icoxwebconsulting/java-test-cloud.git'
-                sh "cd ApiTesting/"
             }
         }
 
