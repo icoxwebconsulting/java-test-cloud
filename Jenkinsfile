@@ -19,7 +19,6 @@ pipeline {
         stage ('Download Project') {
             steps {
                 git url: 'https://github.com/icoxwebconsulting/java-test-cloud.git'
-                sh "cd ApiTesting/"
             }
         }
 
@@ -31,7 +30,7 @@ pipeline {
 
         stage ('Test') {
             steps  {
-                sh "mvn -Dcucumber.options=\"--tags @prueba\" clean verify"
+                sh "mvn -Dcucumber.options=\"--tags @find\" clean verify"
             }
             post {
                 always {
