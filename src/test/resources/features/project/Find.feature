@@ -1,6 +1,6 @@
 Feature: As a user of riskIQ platform I want to see a project or projects using search criteria
-
-  #all projects without params
+  Background:
+    Given A user with user "robertm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
   @find
   Scenario: Check when i search all projects, the response retrieve all the information related with the projects
   Given A user with user "robertm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
@@ -27,12 +27,15 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
 
 
   #all projects with UUID params
-  @find
+  @findProject4
   Scenario: Check when i send an specific GUID project, the response retrieve all the information related with the project searched
-  Given A user with user "robertm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
+  Given a project that already exists whit values
+    | key        | value |
+    | name | My Public Project|
+    | visibility  | public |
     When users want to get information on the project with the values
       | key     | value                                |
-      | project | 279abfa2-9e97-0cb9-d2bb-995bca7c5909 |
+      | project | @@guid |
     Then the api should response with code 200
     #And the number of projects should be equal to 1
 

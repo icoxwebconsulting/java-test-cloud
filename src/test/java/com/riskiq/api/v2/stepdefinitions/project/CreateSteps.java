@@ -1,5 +1,6 @@
 package com.riskiq.api.v2.stepdefinitions.project;
 
+import cucumber.api.java.en.Given;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 import com.riskiq.api.v2.FlowData;
@@ -14,13 +15,9 @@ import static com.riskiq.api.v2.misc.Utils.dataTableToJson;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 
-public class ProjectSteps extends FlowData {
+public class CreateSteps extends FlowData {
 
 
-    @When("^users want to get information on the project with the values$")
-    public void usersWantToGetInformationOnTheProjectWithId(DataTable dataTable) {
-        response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).get("/project"));
-    }
 
     @When("^users want to get information of the all project$")
     public void users_want_to_get_information_of_the_all_project() throws Throwable {
@@ -38,6 +35,8 @@ public class ProjectSteps extends FlowData {
         // Write code here that turns the phrase above into concrete actions
         //throw new PendingException();
     }
+
+
 
     @And("^the number of projects should be greater than (\\d+)$")
     public void theNumberOfProjectsShouldBeGreaterThan(int numberOfProjects) throws Throwable {

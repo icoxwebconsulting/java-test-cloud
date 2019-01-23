@@ -27,3 +27,15 @@ Feature: As a user of riskIQ platform I want to create a project
       | organization | riskiq |
       | success | true  |
     And Check JSON schema "project/Create.json"
+
+  @createProject2
+  Scenario: create a project
+    When users want to create project with the values
+      | key        | value |
+      | name | My Public Project|
+      | visibility  | public |
+    Then the api should response with code 200
+    And Response includes the following
+      | name | My Public Project |
+      | visibility  | public |
+    Then get proyectUUID from project created

@@ -17,6 +17,8 @@ public class Utils {
     public synchronized static String dataTableToJson(List<BodyElement> bodyElements) {
         AtomicReference<String> json = new AtomicReference<>("");
         bodyElements.forEach(bodyElement -> {
+
+
             if ((bodyElement.getValue().equals("true") || bodyElement.getValue().equals("false")) && bodyElements.size() == bodyElements.indexOf(bodyElement) + 1) {
                 json.set(String.join("", json.get(), String.format("\"%s\": %s", bodyElement.getKey(), bodyElement.getValue())));
             } else if ((bodyElement.getKey().equals("query") || bodyElement.getKey().equals("tags")) && bodyElements.size() != bodyElements.indexOf(bodyElement) + 1) {
@@ -32,7 +34,14 @@ public class Utils {
             } else if ((bodyElement.getValue().equals("true") || bodyElement.getValue().equals("false")) && bodyElements.size() != bodyElements.indexOf(bodyElement) + 1) {
                 json.set(String.join("", json.get(), String.format("\"%s\": %s,\n", bodyElement.getKey(), bodyElement.getValue())));
             } else if ((!bodyElement.getValue().equals("true") && !bodyElement.getValue().equals("false")) && bodyElements.size() == bodyElements.indexOf(bodyElement) + 1) {
-                json.set(String.join("", json.get(), String.format("\"%s\": \"%s\"", bodyElement.getKey(), bodyElement.getValue())));
+                if(StringUtils.containsIgnoreCase(bodyElement.getValue().toString(), "@@")){
+
+
+                    json.set(String.join("", json.get(), String.format("\"%s\": \"%s\"", bodyElement.getKey(), "182d1a3a-5be3-dad4-76b8-67f8f79e8488")));
+                }else{
+                    json.set(String.join("", json.get(), String.format("\"%s\": \"%s\"", bodyElement.getKey(), bodyElement.getValue())));
+                }
+
             } else if ((!bodyElement.getValue().equals("true") && !bodyElement.getValue().equals("false")) && bodyElements.size() != bodyElements.indexOf(bodyElement) + 1) {
                 json.set(String.join("", json.get(), String.format("\"%s\": \"%s\",\n", bodyElement.getKey(), bodyElement.getValue())));
             }
