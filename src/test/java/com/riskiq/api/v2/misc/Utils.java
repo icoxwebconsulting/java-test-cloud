@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static com.riskiq.api.v2.FlowData.project;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.hamcrest.core.Is.is;
@@ -34,10 +36,9 @@ public class Utils {
             } else if ((bodyElement.getValue().equals("true") || bodyElement.getValue().equals("false")) && bodyElements.size() != bodyElements.indexOf(bodyElement) + 1) {
                 json.set(String.join("", json.get(), String.format("\"%s\": %s,\n", bodyElement.getKey(), bodyElement.getValue())));
             } else if ((!bodyElement.getValue().equals("true") && !bodyElement.getValue().equals("false")) && bodyElements.size() == bodyElements.indexOf(bodyElement) + 1) {
-                if(StringUtils.containsIgnoreCase(bodyElement.getValue().toString(), "@@")){
+                if(StringUtils.containsIgnoreCase(bodyElement.getValue().toString(), "@project_id")){
 
-
-                    json.set(String.join("", json.get(), String.format("\"%s\": \"%s\"", bodyElement.getKey(), "182d1a3a-5be3-dad4-76b8-67f8f79e8488")));
+                    json.set(String.join("", json.get(), String.format("\"%s\": \"%s\"", bodyElement.getKey(), project.get().getGuid())));
                 }else{
                     json.set(String.join("", json.get(), String.format("\"%s\": \"%s\"", bodyElement.getKey(), bodyElement.getValue())));
                 }

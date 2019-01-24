@@ -1,7 +1,7 @@
 Feature: As a user of riskIQ platform I want to see a project or projects using search criteria
   Background:
     Given A user with user "robertm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
-    Given a project that already exists with values
+    And a project that already exists with values
       | key        | value |
       | name | My Public Project |
       | visibility  | public |
@@ -33,7 +33,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
   Scenario: Check when i send an specific GUID project, the response retrieve all the information related with the project searched
     When users want to get information on the project with the values
     | key     | value  |
-    | project | @@guid |
+    | project | @project_id |
     Then the api should response with code 200
     #And the number of projects should be equal to 1
 
@@ -42,7 +42,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
   Scenario: Check when i send an specific GUID project, the response retrieve all the information related with the project searched
     When users want to get information on the project with the values
       | key     | value  |
-      | project | @@guid |
+      | project | @project_id |
     Then the api should response with code 200
     #And Check JSON schema jsonSchema/schema.json
 
@@ -52,7 +52,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Given A user with user "email@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
     When users want to get information on the project with the values
       | key     | value  |
-      | project | @@guid |
+      | project | @project_id |
     Then the api should response with code 401
     #And Check JSON schema jsonSchema/schema.json
 

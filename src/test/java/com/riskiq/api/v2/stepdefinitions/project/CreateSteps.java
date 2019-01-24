@@ -1,5 +1,6 @@
 package com.riskiq.api.v2.stepdefinitions.project;
 
+import com.riskiq.api.v2.stepdefinitions.project.impl.Project;
 import cucumber.api.java.en.Given;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
@@ -28,6 +29,7 @@ public class CreateSteps extends FlowData {
     @When("^users want to create project with the values$")
     public void usersWantToCreateProjectWithTheValues(DataTable dataTable) {
         response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put());
+        project.set(Project.builder().guid(response.get().then().extract().path("guid")).build());
     }
 
     @Then("^the requested data match with the schema \"([^\"]*)\"$")
