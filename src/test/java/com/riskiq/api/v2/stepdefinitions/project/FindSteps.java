@@ -16,8 +16,8 @@ import static org.hamcrest.Matchers.greaterThan;
 public class FindSteps extends FlowData {
 
 
-    @Given("^a project that already exists whit values$")
-    public void a_project_that_already_exists_whit_values(DataTable dataTable) {
+    @Given("^a project that already exists with values$")
+    public void a_project_that_already_exists_with_values(DataTable dataTable) {
         response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put());
         //response.get().then().extract().path("guid").toString();
     }
