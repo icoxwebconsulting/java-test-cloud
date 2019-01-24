@@ -22,15 +22,9 @@ pipeline {
             }
         }
 
-        stage ('Build') {
-            steps {
-                sh "mvn -version "
-            }
-        }
-
         stage ('Test') {
             steps  {
-                sh "mvn -Dcucumber.options=\"--tags @find\" clean verify"
+                sh "mvn clean verify"
             }
             post {
                 always {
