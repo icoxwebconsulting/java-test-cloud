@@ -1,22 +1,21 @@
 Feature: As a user of riskIQ platform I want to see a project or projects using search criteria
-  #all projects without params, response 200 and chek project number
-  @findProject1
+
+  @findProject
   Scenario: Check the response of find all projects when i search all project that exist in riskIQ platform is a 200
     Given a valid user from riskIQ platform
     When users want to get information of the all project
     Then the api should response with code 200
 
-  #all projects without params and chek Json schema
-  @findProject2
+
+  @findProject
   Scenario: Check the response of find all projects when i search all project that exist in riskIQ platform is a 200 and check
   with json schema
     Given a valid user from riskIQ platform
     When users want to get information of the all project
     Then the api should response with code 200
-    #And Check JSON schema "project/Create.json"
+    And Check JSON schema "project/Create.json"
 
-  #all projects without params, invalid credentials and chek Json schema
-  @findProject3
+  @findProject
   Scenario: Check the response of find all projects , with wrong credentials retrieve error message 401 and check
   with json schema
     Given a invalid user from riskIQ platform
@@ -24,8 +23,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 401
     And Check JSON schema "project/InvalidCredentials.json"
 
-  #find projects with UUID params
-  @findProject4
+  @findProject
   Scenario: Check the response of find project when i search a project that exist in riskIQ platform is a 200 and
   the number of projects should be equal to 1
     Given a valid user from riskIQ platform
@@ -38,8 +36,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 200
     And the number of projects should be equal to 1
 
-  #all projects with UUID params, invalid credentials and chek Json schema
-  @findProject5
+  @findProject
   Scenario: Check the response of find project by GUID  with wrong credentials the response retrieve error message and code error 401 and
   check with json schema
     Given a created project with values
@@ -52,8 +49,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 401
     And Check JSON schema "project/InvalidCredentials.json"
 
-  #all projects with invalid UUID params and chek Json schema
-  @findProject6
+  @findProject
   Scenario: Check when i send an invalid GUID project, the response retrieve error message and code 400 error
     Given a valid user from riskIQ platform
     When users want to get information on the project with the values
@@ -62,8 +58,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 400
     And Check JSON schema "project/InvalidGUID.json"
 
-#all projects with not exist UUID params and chek Json schema
-  @findProject7
+  @findProject
   Scenario: Check when i send an not exist GUID project, the response retrieve error message and code 404 error
     Given a valid user from riskIQ platform
     When users want to get information on the project with the values
@@ -72,8 +67,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 404
     And Check JSON schema "project/NoProjectWithThatID.json"
 
- ##all projects with Owner params
-  @findProject8
+  @findProject
   Scenario: Check when i send an specific Owner project, the response retrieve all the information related with the project searched
     Given a valid user from riskIQ platform
     And a created project with values
@@ -87,9 +81,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 200
     And the number of projects should be greater than 1
 
-  @findProject9
+  @findProject
   Scenario: Check when i send an specific Owner project, the response retrieve all the information related with the project searched and
-  code 200
+  code 200 and check with json schema
     Given a valid user from riskIQ platform
     And a created project with values
       | key        | value       |
@@ -100,10 +94,10 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key   | value     |
       | owner | testcloud |
     Then the api should response with code 200
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
-  @findProject10
-  Scenario: Check when i send an specific Owner project with wrong credentials the response retrieve error message and code error
+  @findProject
+  Scenario: Check when i send an specific Owner project with wrong credentials the response retrieve error message and code error and check with json schema
     Given a created project with values
       | key        | value        |
       | name       | PROJECT API  |
@@ -115,9 +109,8 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | owner | testcloud |
     Then the api should response with code 401
 
-  #Este scenario debe resultar en codigo 400 pero resulta en codigo 200, es un error
   @find
-  Scenario: Check when i send an invalid Owner project, the response retrieve error message and code error
+  Scenario: Check when i send an invalid Owner project, the response retrieve error message and code error and check with json schema
     Given a valid user from riskIQ platform
     And a created project with values
       | key        | value        |
@@ -128,9 +121,8 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key   | value      |
       | owner | valueWrong |
     Then the api should response with code 400
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
-#  Creator
   @find
   Scenario: Check when i send an specific Creator project, the response retrieve all the information related with the project searched
     Given a valid user from riskIQ platform
@@ -159,10 +151,10 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key     | value            |
       | creator | robertm@icox.com |
     Then the api should response with code 200
-   #And Check JSON schema jsonSchema/schema.json
+   And Check JSON schema jsonSchema/schema.json
 
   @find
-  Scenario: Check when i send an specific Creator project with wrong credentials the response retrieve error message and code 401 error
+  Scenario: Check when i send an specific Creator project with wrong credentials the response retrieve error message and code 401 error and check with json schema
     Given a created project with values
       | key        | value            |
       | name       | PROJECT API      |
@@ -174,9 +166,8 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | creator | robertm@icox.com |
     Then the api should response with code 401
 
-  #Este scenario debe resultar en codigo 400 pero resulta en codigo 200, es un error
   @find
-  Scenario: Check when i send an invalid Creator project, the response retrieve error message and code 400 error
+  Scenario: Check when i send an invalid Creator project, the response retrieve error message and code 400 error and check with json schema
     Given a valid user from riskIQ platform
     And a created project with values
       | key        | value            |
@@ -187,9 +178,8 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key     | value               |
       | creator | emailwrong@icox.com |
     Then the api should response with code 400
-   #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
-  #organization
   @find
   Scenario: Check when i send an specific organization, the response retrieve all the information related with the project searched
     Given a valid user from riskIQ platform
@@ -205,7 +195,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And the number of projects should be greater than 1
 
   @find
-  Scenario: Check when i send an specific organization, the response retrieve all the information related with the project searched
+  Scenario: Check when i send an specific organization, the response retrieve all the information related with the project searched and check with json schema
     Given a valid user from riskIQ platform
     And a created project with values
       | key          | value       |
@@ -216,10 +206,10 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key          | value     |
       | organization | testcloud |
     Then the api should response with code 200
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
   @find
-  Scenario: Check when i send an specific organization with wrong credentials the response retrieve error message and code 401 error
+  Scenario: Check when i send an specific organization with wrong credentials the response retrieve error message and code 401 error and check with json schema
     Given a created project with values
       | key          | value       |
       | name         | PROJECT API |
@@ -231,9 +221,8 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | organization | testcloud |
     Then the api should response with code 401
 
-  #Este scenario debe resultar en codigo 400 pero resulta en codigo 200, es un error
   @find
-  Scenario: Check when i send an invalid organization, the response retrieve error message and code 400 error and check JSON scheme
+  Scenario: Check when i send an invalid organization, the response retrieve error message and code 400 error and check with json schema
     Given a valid user from riskIQ platform
     And a created project with values
       | key          | value       |
@@ -244,9 +233,8 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key          | value      |
       | organization | valueWrong |
     Then the api should response with code 400
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
-  #Visibility
   @find
   Scenario: Check when i send an public visibility param, the response retrieve all the information related with the project searched
     Given a valid user from riskIQ platform
@@ -300,7 +288,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key        | value  |
       | visibility | public |
     Then the api should response with code 200
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
   @find
   Scenario: Check when i send an private visibility param, the response retrieve all the information related with the project searched and check with json schema
@@ -314,7 +302,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And Response includes the following
       | key        | value   |
       | visibility | private |
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
   @find
   Scenario: Check when i send an analyst visibility param, the response retrieve all the information related with the project searched and check with json schema
@@ -328,10 +316,10 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And Response includes the following
       | key        | value   |
       | visibility | analyst |
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
   @find
-  Scenario: Check when i send an specific visibility with wrong credentials the response retrieve error message and code error
+  Scenario: Check when i send an specific visibility with wrong credentials the response retrieve error message and code error and check with json schema
     Given a created project with values
       | key          | value       |
       | name         | PROJECT API |
@@ -340,10 +328,10 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And a invalid user from riskIQ platform
     When users want to get information of the project by id
     Then the api should response with code 401
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
   @find
-  Scenario: Check when i send an invalid visibility, the response retrieve error message and code error
+  Scenario: Check when i send an invalid visibility, the response retrieve error message and code error and check with json schema
     Given a valid user from riskIQ platform
     And a created project with values
       | key        | value       |
@@ -353,9 +341,8 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key        | value      |
       | visibility | valueWrong |
     Then the api should response with code 400
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
-  #Feature
   @find
   Scenario: Check when i send feature: true, the response retrieve all the information related with the project searched
     Given a valid user from riskIQ platform
@@ -401,7 +388,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | name       | PROJECT API |
       | visibility | public      |
       | featured   | true        |
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
   @find
   Scenario: Check when i send feature: false, the response retrieve all the information related with the project searched and check with json schema
@@ -417,7 +404,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | name       | PROJECT API |
       | visibility | public      |
       | featured   | false       |
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
   @find
   Scenario: Check when i send an specific feature with wrong credentials the response retrieve error message and code error and check with json schema
@@ -429,5 +416,5 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And a invalid user from riskIQ platform
     When users want to get information of the project by id
     Then the api should response with code 401
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
