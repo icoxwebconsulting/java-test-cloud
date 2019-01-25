@@ -10,5 +10,5 @@ public class FlowData {
     protected static InheritableThreadLocal<RequestSpecification> rs = new InheritableThreadLocal<>();
     protected static InheritableThreadLocal<Response> response = new InheritableThreadLocal<>();
     protected static ValidatableResponse json;
-    public static InheritableThreadLocal<Project> project = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> projectId = new InheritableThreadLocal<>();
 }

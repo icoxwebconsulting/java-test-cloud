@@ -1,92 +1,115 @@
 Feature: As a user of riskIQ platform I want to see a project or projects using search criteria
-  Background:
-    Given A user with user "robertm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
-    And a project that already exists with values
-      | key        | value |
-      | name | My Public Project |
-      | visibility  | public |
-  @find
-  Scenario: Check when i search all projects, the response retrieve all the information related with the projects
-  Given A user with user "robertm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
+  #all projects without params, response 200 and chek project number
+  @findProject1
+  Scenario: Check the response of find all projects when i search all project that exist in riskIQ platform is a 200
+    Given a valid user from riskIQ platform
     When users want to get information of the all project
     Then the api should response with code 200
-    And the number of projects should be greater than 1
 
   #all projects without params and chek Json schema
-  @find
-  Scenario: Check when i search all projects, the response retrieve all the information related with the projects and check with json schema
-    Given A user with user "robertm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
+  @findProject2
+  Scenario: Check the response of find all projects when i search all project that exist in riskIQ platform is a 200 and check
+  with json schema
+    Given a valid user from riskIQ platform
     When users want to get information of the all project
     Then the api should response with code 200
-    #And Check JSON schema jsonSchema/schema.json
+    #And Check JSON schema "project/Create.json"
 
   #all projects without params, invalid credentials and chek Json schema
-  @find
-  Scenario: Check when i search all projects, with wrong credentials the response retrieve error message and code error
-    Given A user with user "email@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
+  @findProject3
+  Scenario: Check the response of find all projects , with wrong credentials retrieve error message 401 and check
+  with json schema
+    Given a invalid user from riskIQ platform
     When users want to get information of the all project
     Then the api should response with code 401
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema "project/InvalidCredentials.json"
 
-  #all projects with UUID params
-  @find
-  Scenario: Check when i send an specific GUID project, the response retrieve all the information related with the project searched
-    When users want to get information on the project with the values
-    | key     | value  |
-    | project | @project_id |
+  #find projects with UUID params
+  @findProject4
+  Scenario: Check the response of find project when i search a project that exist in riskIQ platform is a 200 and
+  the number of projects should be equal to 1
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value        |
+      | name       | PROJECT API  |
+      | visibility | public       |
+      | owner      | passivetotal |
+    When users want to get information of the project by id
     Then the api should response with code 200
-    #And the number of projects should be equal to 1
-
-  #all projects with UUID params
-  @find
-  Scenario: Check when i send an specific GUID project, the response retrieve all the information related with the project searched
-    When users want to get information on the project with the values
-      | key     | value  |
-      | project | @project_id |
-    Then the api should response with code 200
-    #And Check JSON schema jsonSchema/schema.json
+    And the number of projects should be equal to 1
 
   #all projects with UUID params, invalid credentials and chek Json schema
-  @find
-  Scenario: Check when i send an specific GUID project with wrong credentials the response retrieve error message and code error
-    Given A user with user "email@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
-    When users want to get information on the project with the values
-      | key     | value  |
-      | project | @project_id |
+  @findProject5
+  Scenario: Check the response of find project by GUID  with wrong credentials the response retrieve error message and code error 401 and
+  check with json schema
+    Given a created project with values
+      | key        | value        |
+      | name       | PROJECT API  |
+      | visibility | public       |
+      | owner      | passivetotal |
+    And a invalid user from riskIQ platform
+    When users want to get information of the project by id
     Then the api should response with code 401
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema "project/InvalidCredentials.json"
 
   #all projects with invalid UUID params and chek Json schema
-  @find
-  Scenario: Check when i send an invalid GUID project, the response retrieve error message and code error
+  @findProject6
+  Scenario: Check when i send an invalid GUID project, the response retrieve error message and code 400 error
+    Given a valid user from riskIQ platform
     When users want to get information on the project with the values
       | key     | value  |
+      | project | asdsad |
+    Then the api should response with code 400
+    And Check JSON schema "project/InvalidGUID.json"
+
+#all projects with not exist UUID params and chek Json schema
+  @findProject7
+  Scenario: Check when i send an not exist GUID project, the response retrieve error message and code 404 error
+    Given a valid user from riskIQ platform
+    When users want to get information on the project with the values
+      | key     | value                                |
       | project | 285cbfa2-9e97-0cb9-d2bc-995bca7c5940 |
     Then the api should response with code 404
-    #And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema "project/NoProjectWithThatID.json"
 
-
-#  #Owner
-  @find
+ ##all projects with Owner params
+  @findProject8
   Scenario: Check when i send an specific Owner project, the response retrieve all the information related with the project searched
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+      | owner      | testcloud   |
     When users want to get information on the project with the values
       | key   | value     |
       | owner | testcloud |
     Then the api should response with code 200
     And the number of projects should be greater than 1
-    And the number of projects should be equal to 2
 
-  @find
-  Scenario: Check when i send an specific Owner project, the response retrieve all the information related with the project searched
+  @findProject9
+  Scenario: Check when i send an specific Owner project, the response retrieve all the information related with the project searched and
+  code 200
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+      | owner      | testcloud   |
     When users want to get information on the project with the values
       | key   | value     |
       | owner | testcloud |
     Then the api should response with code 200
     #And Check JSON schema jsonSchema/schema.json
 
-  @find
+  @findProject10
   Scenario: Check when i send an specific Owner project with wrong credentials the response retrieve error message and code error
-    Given A user with user "robertmm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
+    Given a created project with values
+      | key        | value        |
+      | name       | PROJECT API  |
+      | visibility | public       |
+      | owner      | passivetotal |
+    And a invalid user from riskIQ platform
     When users want to get information on the project with the values
       | key   | value     |
       | owner | testcloud |
@@ -95,8 +118,14 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
   #Este scenario debe resultar en codigo 400 pero resulta en codigo 200, es un error
   @find
   Scenario: Check when i send an invalid Owner project, the response retrieve error message and code error
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value        |
+      | name       | PROJECT API  |
+      | visibility | public       |
+      | owner      | passivetotal |
     When users want to get information on the project with the values
-      | key   | value     |
+      | key   | value      |
       | owner | valueWrong |
     Then the api should response with code 400
     #And Check JSON schema jsonSchema/schema.json
@@ -104,34 +133,58 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
 #  Creator
   @find
   Scenario: Check when i send an specific Creator project, the response retrieve all the information related with the project searched
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value            |
+      | name       | PROJECT API      |
+      | visibility | public           |
+      | creator    | robertm@icox.com |
     When users want to get information on the project with the values
-      | key   | value        |
+      | key     | value            |
       | creator | robertm@icox.com |
     Then the api should response with code 200
     And the number of projects should be greater than 1
     And the number of projects should be equal to 2
 
   @find
-  Scenario: Check when i send an specific Creator project, the response retrieve all the information related with the project searched
+  Scenario: Check when i send an specific Creator project, the response retrieve all the information related with the project searched and
+  code 200 and check JSON schema
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value            |
+      | name       | PROJECT API      |
+      | visibility | public           |
+      | creator    | robertm@icox.com |
     When users want to get information on the project with the values
-      | key   | value        |
+      | key     | value            |
       | creator | robertm@icox.com |
     Then the api should response with code 200
    #And Check JSON schema jsonSchema/schema.json
 
   @find
-  Scenario: Check when i send an specific Creator project with wrong credentials the response retrieve error message and code error
-  Given A user with user "robertmm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
+  Scenario: Check when i send an specific Creator project with wrong credentials the response retrieve error message and code 401 error
+    Given a created project with values
+      | key        | value            |
+      | name       | PROJECT API      |
+      | visibility | public           |
+      | creator    | robertm@icox.com |
+    And a invalid user from riskIQ platform
     When users want to get information on the project with the values
-      | key   | value        |
+      | key     | value            |
       | creator | robertm@icox.com |
     Then the api should response with code 401
 
   #Este scenario debe resultar en codigo 400 pero resulta en codigo 200, es un error
   @find
-  Scenario: Check when i send an invalid Creator project, the response retrieve error message and code error
+  Scenario: Check when i send an invalid Creator project, the response retrieve error message and code 400 error
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value            |
+      | name       | PROJECT API      |
+      | visibility | public           |
+      | creator    | robertm@icox.com |
     When users want to get information on the project with the values
-      | key   | value        |
+      | key     | value               |
       | creator | emailwrong@icox.com |
     Then the api should response with code 400
    #And Check JSON schema jsonSchema/schema.json
@@ -139,34 +192,56 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
   #organization
   @find
   Scenario: Check when i send an specific organization, the response retrieve all the information related with the project searched
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key          | value       |
+      | name         | PROJECT API |
+      | visibility   | public      |
+      | organization | testcloud   |
     When users want to get information on the project with the values
-      | key   | value        |
+      | key          | value     |
       | organization | testcloud |
     Then the api should response with code 200
     And the number of projects should be greater than 1
-    And the number of projects should be equal to 2
 
   @find
   Scenario: Check when i send an specific organization, the response retrieve all the information related with the project searched
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key          | value       |
+      | name         | PROJECT API |
+      | visibility   | public      |
+      | organization | testcloud   |
     When users want to get information on the project with the values
-      | key   | value        |
+      | key          | value     |
       | organization | testcloud |
     Then the api should response with code 200
     #And Check JSON schema jsonSchema/schema.json
 
   @find
-  Scenario: Check when i send an specific organization with wrong credentials the response retrieve error message and code error
-    Given A user with user "robertmm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
+  Scenario: Check when i send an specific organization with wrong credentials the response retrieve error message and code 401 error
+    Given a created project with values
+      | key          | value       |
+      | name         | PROJECT API |
+      | visibility   | public      |
+      | organization | testcloud   |
+    And a invalid user from riskIQ platform
     When users want to get information on the project with the values
-      | key   | value        |
+      | key          | value     |
       | organization | testcloud |
     Then the api should response with code 401
 
   #Este scenario debe resultar en codigo 400 pero resulta en codigo 200, es un error
   @find
-  Scenario: Check when i send an invalid organization, the response retrieve error message and code error
+  Scenario: Check when i send an invalid organization, the response retrieve error message and code 400 error and check JSON scheme
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key          | value       |
+      | name         | PROJECT API |
+      | visibility   | public      |
+      | organization | testcloud   |
     When users want to get information on the project with the values
-      | key   | value     |
+      | key          | value      |
       | organization | valueWrong |
     Then the api should response with code 400
     #And Check JSON schema jsonSchema/schema.json
@@ -174,87 +249,108 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
   #Visibility
   @find
   Scenario: Check when i send an public visibility param, the response retrieve all the information related with the project searched
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 7|
-      | visibility  | public |
-    When users want to get information on the project with the values
-      | key   | value       |
-      | visibility | public |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | key        | value  |
+      | visibility | public |
+
+
   @find
   Scenario: Check when i send an private visibility param, the response retrieve all the information related with the project searched
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 8|
-      | visibility  | private |
-    When users want to get information on the project with the values
-      | key   | value        |
-      | visibility | private |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | private     |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | key        | value   |
+      | visibility | private |
+
   @find
   Scenario: Check when i send an analyst visibility param, the response retrieve all the information related with the project searched
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 9|
-      | visibility  | analyst |
-    When users want to get information on the project with the values
-      | key   | value        |
-      | visibility | analyst |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | analyst     |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | key        | value   |
+      | visibility | analyst |
+
   @find
   Scenario: Check when i send an public visibility param, the response retrieve all the information related with the project searched and check with json schema
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 10|
-      | visibility  | public |
-    When users want to get information on the project with the values
-      | key   | value       |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+    When users want to get information of the project by id
+    Then the api should response with code 200
+    And Response includes the following
+      | key        | value  |
       | visibility | public |
     Then the api should response with code 200
     #And Check JSON schema jsonSchema/schema.json
+
   @find
   Scenario: Check when i send an private visibility param, the response retrieve all the information related with the project searched and check with json schema
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 11|
-      | visibility  | private |
-    When users want to get information on the project with the values
-      | key   | value        |
-      | visibility | private |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | private     |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | key        | value   |
+      | visibility | private |
     #And Check JSON schema jsonSchema/schema.json
+
   @find
   Scenario: Check when i send an analyst visibility param, the response retrieve all the information related with the project searched and check with json schema
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 12|
-      | visibility  | analyst |
-    When users want to get information on the project with the values
-      | key   | value        |
-      | visibility | analyst |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | analyst     |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | key        | value   |
+      | visibility | analyst |
     #And Check JSON schema jsonSchema/schema.json
+
   @find
   Scenario: Check when i send an specific visibility with wrong credentials the response retrieve error message and code error
-    Given A user with user "robertmm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 13|
-      | visibility  | public |
-    When users want to get information on the project with the values
-      | key   | value       |
-      | visibility | public |
+    Given a created project with values
+      | key          | value       |
+      | name         | PROJECT API |
+      | visibility   | public      |
+      | organization | testcloud   |
+    And a invalid user from riskIQ platform
+    When users want to get information of the project by id
     Then the api should response with code 401
     #And Check JSON schema jsonSchema/schema.json
+
   @find
   Scenario: Check when i send an invalid visibility, the response retrieve error message and code error
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 14|
-      | visibility  | public |
-    When users want to get information on the project with the values
-      | key   | value        |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+    When users want to get information of the project by id
+      | key        | value      |
       | visibility | valueWrong |
     Then the api should response with code 400
     #And Check JSON schema jsonSchema/schema.json
@@ -262,60 +358,76 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
   #Feature
   @find
   Scenario: Check when i send feature: true, the response retrieve all the information related with the project searched
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 15|
-      | visibility  | public |
-      | featured | true |
-    When users want to get information on the project with the values
-      | key   | value  |
-      | featured | true |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | true        |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | true        |
+
+
   @find
   Scenario: Check when i send feature: false, the response retrieve all the information related with the project searched
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 16|
-      | visibility  | public |
-      | featured | false |
-    When users want to get information on the project with the values
-      | key   | value  |
-      | featured | false |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | false       |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | false       |
+
   @find
   Scenario: Check when i send feature: true, the response retrieve all the information related with the project searched and check with json schema
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 17|
-      | visibility  | public |
-      | featured | true |
-    When users want to get information on the project with the values
-      | key   | value  |
-      | featured | true |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | true        |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | true        |
     #And Check JSON schema jsonSchema/schema.json
+
   @find
   Scenario: Check when i send feature: false, the response retrieve all the information related with the project searched and check with json schema
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 18|
-      | visibility  | public |
-      | featured | false |
-    When users want to get information on the project with the values
-      | key   | value  |
-      | featured | false |
+    Given a valid user from riskIQ platform
+    And a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | false       |
+    When users want to get information of the project by id
     Then the api should response with code 200
+    And Response includes the following
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | false       |
     #And Check JSON schema jsonSchema/schema.json
+
   @find
   Scenario: Check when i send an specific feature with wrong credentials the response retrieve error message and code error and check with json schema
-    Given A user with user "robertmm@icox.com" and password "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"
-    Given a project that already exists whit values
-      | key  | value |
-      | name | My Public Project 19|
-      | visibility  | public |
-      | featured | false |
-    When users want to get information on the project with the values
-      | key   | value  |
-      | featured | false |
+    Given a created project with values
+      | key        | value       |
+      | name       | PROJECT API |
+      | visibility | public      |
+      | featured   | false       |
+    And a invalid user from riskIQ platform
+    When users want to get information of the project by id
     Then the api should response with code 401
     #And Check JSON schema jsonSchema/schema.json
+

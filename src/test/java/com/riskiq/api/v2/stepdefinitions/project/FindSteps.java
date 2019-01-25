@@ -27,12 +27,5 @@ public class FindSteps extends FlowData {
         response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).get("/project"));
     }
 
-    @Then("^get proyectUUID from project created$")
-    public void getProyectUUID() throws Throwable {
-        System.out.println("===============================");
-        System.out.println(json.extract().path("guid").toString());
-        json.extract().path("project");
-    }
-
 
 }

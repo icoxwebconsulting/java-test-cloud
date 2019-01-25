@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class Project {
 
-    public String guid;
+    public InheritableThreadLocal<String> guid;
 
 }

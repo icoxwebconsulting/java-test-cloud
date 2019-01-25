@@ -24,11 +24,4 @@ public class DeleteSteps extends FlowData {
   }
 
 
-  @Then("^get projectUUID from project created$")
-  public void getProjectUUID() throws Throwable {
-    System.out.println("===============================");
-    System.out.println(json.extract().path("guid").toString());
-    json.extract().path("project");
-  }
-
 }

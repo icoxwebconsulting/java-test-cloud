@@ -15,16 +15,16 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class CommonSteps extends FlowData {
 
-    @Given("^A user with user \"([^\"]*)\" and password \"([^\"]*)\"$")
-    public void aUserWithUserAndPassword(String user, String password) {
-        rs.set(given().auth().preemptive().basic(user, password));
-
+    @Given("^a valid user from riskIQ platform$")
+    public void aValidUserFromRiskIQPlatform() {
+        //rs.set(given().auth().preemptive().basic(System.getProperty("user"), System.getProperty("password")));
+        rs.set(given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
     }
 
-    @Given("^the apis up and running for \"([^\"}]*)\"$")
-    public void theApisUpAndRunningFor(String url) throws Throwable {
-        response.set(given().when().get(url));
-        response.get().then().statusCode(200);
+    @Given("^a invalid user from riskIQ platform$")
+    public void aInvalidUserFromRiskIQPlatform() {
+        //rs.set(given().auth().preemptive().basic(System.getProperty("user"), System.getProperty("password")));
+        rs.set(given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf071826asdsad8aad9af"));
     }
 
 
