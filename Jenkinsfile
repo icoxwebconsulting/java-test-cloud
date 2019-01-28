@@ -25,7 +25,7 @@ pipeline {
         stage ('Test') {
             steps  {
                 withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    sh "mvn -Dcucumber.options=\\\"--tags @findProject1\\\" -Dusername=$username -Dpassword=$password clean verify"
+                    sh "mvn -Dcucumber.options='--tags @findProject1' -Dusername=$username -Dpassword=$password clean verify"
                 }
             }
             post {
