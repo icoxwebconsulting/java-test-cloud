@@ -49,6 +49,19 @@ public class FlowData  {
            String random =  value[1];
             random += "_"+generateRandomString();
             bodyElement.setValue(random);
+        }else{
+            String[] value = bodyElement.getValue().split("@@randomTags");
+            int numberTags = Integer.valueOf(value[1]);
+            String random =  "";
+            for(int i=0; i<numberTags; i++ ){
+                if(numberTags > 1 && i != numberTags){
+                    random += "Tag_"+generateRandomString() + " , ";
+                }else{
+                    random += "Tag_"+generateRandomString();
+                }
+
+            }
+            System.out.println(random);
         }
         return bodyElement;
     }
