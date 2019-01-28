@@ -1,7 +1,9 @@
 package com.riskiq.api.v2.stepdefinitions.project;
 
-import com.riskiq.api.v2.stepdefinitions.project.impl.Project;
+
 import cucumber.api.java.en.Given;
+import gherkin.deps.com.google.gson.Gson;
+import gherkin.deps.com.google.gson.GsonBuilder;
 import io.restassured.RestAssured;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
@@ -12,16 +14,13 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.http.ContentType;
-
 import java.util.Collections;
-
-import static com.riskiq.api.v2.misc.Utils.dataTableToJson;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
-public class CreateSteps extends FlowData {
+public class CreateSteps extends FlowData  {
 
 
 
@@ -66,4 +65,9 @@ public class CreateSteps extends FlowData {
             response.get().then().body("results.size()", equalTo(numberOfProjects));
         }
     }
+
+
+
+
+
 }

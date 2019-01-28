@@ -23,15 +23,15 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 401
     And Check JSON schema "project/InvalidCredentials.json"
 
-  @findProject
+  @findProject222
   Scenario: Check the response of find project when i search a project that exist in riskIQ platform is a 200 and
   the number of projects should be equal to 1
     Given a valid user from riskIQ platform
     And a created project with values
-      | key        | value        |
-      | name       | PROJECT API  |
-      | visibility | public       |
-      | owner      | passivetotal |
+      | key        | value         |
+      | name       | @@nameproject |
+      | visibility | public        |
+      | owner      | passivetotal  |
     When users want to get information of the project by id
     Then the api should response with code 200
     And the number of projects should be equal to 1
@@ -151,7 +151,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key     | value            |
       | creator | robertm@icox.com |
     Then the api should response with code 200
-   And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema jsonSchema/schema.json
 
   @find
   Scenario: Check when i send an specific Creator project with wrong credentials the response retrieve error message and code 401 error and check with json schema

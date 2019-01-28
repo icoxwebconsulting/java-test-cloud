@@ -2,18 +2,15 @@ package com.riskiq.api.v2.stepdefinitions.project;
 
 import com.riskiq.api.v2.FlowData;
 import com.riskiq.api.v2.impl.BodyElement;
+
+
 import cucumber.api.DataTable;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.http.ContentType;
 
-import static com.riskiq.api.v2.misc.Utils.dataTableToJson;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
 
-public class FindSteps extends FlowData {
+public class FindSteps extends FlowData  {
 
 
     @Given("^a project that already exists with values$")

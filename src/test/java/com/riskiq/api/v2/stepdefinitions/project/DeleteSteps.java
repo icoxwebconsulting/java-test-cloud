@@ -9,7 +9,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.http.ContentType;
 
-import static com.riskiq.api.v2.misc.Utils.dataTableToJson;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 
