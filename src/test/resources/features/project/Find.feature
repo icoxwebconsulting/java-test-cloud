@@ -1,6 +1,6 @@
 Feature: As a user of riskIQ platform I want to see a project or projects using search criteria
 
-  @findProject
+  @findProject1
   Scenario: Check the response of find all projects when i search all project that exist in riskIQ platform is a 200
     Given a valid user from riskIQ platform
     When users want to get information of the all project
