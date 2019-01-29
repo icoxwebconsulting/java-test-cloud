@@ -30,8 +30,6 @@ public class CommonSteps extends FlowData {
 
     @Then("^the api should response with code (\\d+)$")
     public void theApiShouldResponseWithCode(Integer statusCode) {
-
-
         json =   response.get().then().statusCode(statusCode);
     }
 
