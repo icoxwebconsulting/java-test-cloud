@@ -32,7 +32,7 @@ public class CreateSteps extends FlowData  {
 
     @When("^users want to create project with the values$")
     public void usersWantToCreateProjectWithTheValues(DataTable dataTable) {
-        response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put());
+        response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project"));
     }
 
     @Then("^the requested data match with the schema \"([^\"]*)\"$")

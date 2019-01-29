@@ -30,6 +30,7 @@ public class FlowData  {
 
             //validate to random
             if(StringUtils.containsIgnoreCase(bodyElement.getValue(), "@@")){
+
                 this.bodyJson =   createJson(validateRandomValue(bodyElement) , isLast, this.bodyJson);
             }else{
                 //create json
@@ -38,30 +39,31 @@ public class FlowData  {
 
 
         });
-
+        System.out.println(String.format("{%s}", bodyJson.get()));
         return String.format("{%s}", bodyJson.get());
     }
 
     public BodyElement validateRandomValue(BodyElement bodyElement){
 
-        if(!bodyElement.getKey().equalsIgnoreCase("tag") && !bodyElement.getKey().equalsIgnoreCase("query")){
+        if(!bodyElement.getKey().equalsIgnoreCase("tags") && !bodyElement.getKey().equalsIgnoreCase("query")){
             String[] value = bodyElement.getValue().split("@@");
            String random =  value[1];
             random += "_"+generateRandomString();
             bodyElement.setValue(random);
         }else{
+
             String[] value = bodyElement.getValue().split("@@randomTags");
             int numberTags = Integer.valueOf(value[1]);
             String random =  "";
             for(int i=0; i<numberTags; i++ ){
-                if(numberTags > 1 && i != numberTags){
+                if(numberTags > 1 && i != numberTags-1){
                     random += "Tag_"+generateRandomString() + " , ";
                 }else{
                     random += "Tag_"+generateRandomString();
                 }
 
             }
-            System.out.println(random);
+            bodyElement.setValue(random);
         }
         return bodyElement;
     }

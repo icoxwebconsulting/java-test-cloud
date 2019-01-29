@@ -50,7 +50,7 @@ public class Utils {
                 bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": %s,\n", bodyElement.getKey(), bodyElement.getValue())));
             }
             //it is query or tag
-        } else if ((bodyElement.getKey().equals("query") || bodyElement.getKey().equals("tags")) && !isLast) {
+        } else if ((bodyElement.getKey().equals("query") || bodyElement.getKey().equals("tags"))) {
             if(isLast){
                 if (bodyElement.getValue() != null && !bodyElement.getValue().isEmpty() && !bodyElement.getValue().equals("[]")) {
                     bodyElement.setValue(String.format("[\"%s\"]", bodyElement.getValue().replace(",", "\",\"")));
@@ -62,10 +62,18 @@ public class Utils {
                 }
                 bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": %s,\n", bodyElement.getKey(), bodyElement.getValue())));
             }
+        }//type of int
+        else if (bodyElement.getValue().matches("\\d+")) {
+            int value = Integer.valueOf(bodyElement.getValue());
+            if(isLast){
+                bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": %s", bodyElement.getKey(), value)));
+            }else{
+                System.out.println("PASO 2");
+                bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": %s, \n", bodyElement.getKey(), value)));
+            }
         }
             //type of string
          else if ((!bodyElement.getValue().equals("true") && !bodyElement.getValue().equals("false")) ) {
-
             //   json.set(String.join("", json.get(), String.format("\"%s\": \"%s\"", bodyElement.getKey(), project.get().getGuid())));
             if(isLast){
                 bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": \"%s\"", bodyElement.getKey(), bodyElement.getValue())));
@@ -73,6 +81,7 @@ public class Utils {
                 bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": \"%s\",\n", bodyElement.getKey(), bodyElement.getValue())));
             }
         }
+
         return bodyJson;
 
     }
