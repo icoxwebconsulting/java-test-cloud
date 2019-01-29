@@ -28,10 +28,13 @@ public class FlowData  {
         bodyElements.forEach(bodyElement -> {
             Boolean isLast = (bodyElements.size() == bodyElements.indexOf(bodyElement) + 1);
 
-            //validate to random
+            //validate to random (Create)
             if(StringUtils.containsIgnoreCase(bodyElement.getValue(), "@@")){
-
                 this.bodyJson =   createJson(validateRandomValue(bodyElement) , isLast, this.bodyJson);
+
+            }else if(StringUtils.containsIgnoreCase(bodyElement.getValue(), "##")){
+                //create json whit variable (find)
+                this.bodyJson =   createJson(validateSpecificValue(bodyElement)  , isLast, this.bodyJson);
             }else{
                 //create json
                 this.bodyJson =   createJson(bodyElement , isLast, this.bodyJson);
@@ -39,8 +42,10 @@ public class FlowData  {
 
 
         });
-        System.out.println(String.format("{%s}", bodyJson.get()));
-        return String.format("{%s}", bodyJson.get());
+
+
+        System.out.println(String.format("{ %s }", bodyJson.get()));
+        return String.format("{ %s }", bodyJson.get() );
     }
 
     public BodyElement validateRandomValue(BodyElement bodyElement){
@@ -65,6 +70,23 @@ public class FlowData  {
             }
             bodyElement.setValue(random);
         }
+        return bodyElement;
+    }
+
+    public BodyElement validateSpecificValue(BodyElement bodyElement){
+
+            String[] value = bodyElement.getValue().split("##");
+            String key =  value[1];
+
+        switch (key) {
+            case "guid":
+                bodyElement.setValue(String.valueOf(projectId.get()));
+                break;
+            default:
+                bodyElement.setValue("");
+                break;
+        }
+
         return bodyElement;
     }
 }

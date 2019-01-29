@@ -68,7 +68,7 @@ public class Utils {
             if(isLast){
                 bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": %s", bodyElement.getKey(), value)));
             }else{
-                System.out.println("PASO 2");
+
                 bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": %s, \n", bodyElement.getKey(), value)));
             }
         }
