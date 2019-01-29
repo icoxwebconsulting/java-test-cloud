@@ -1,0 +1,134 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "links",
+    "organization",
+    "owner",
+    "active",
+    "can_edit",
+    "featured",
+    "tags",
+    "collaborators",
+    "visibility",
+    "guid",
+    "success",
+    "description",
+    "name",
+    "created",
+    "subscribers",
+    "creator"
+  ],
+  "properties": {
+    "links": {
+      "$id": "#/properties/links",
+      "type": "object",
+      "required": [
+        "tag",
+        "artifact",
+        "self"
+      ],
+      "properties": {
+        "tag": {
+          "$id": "#/properties/links/properties/tag",
+          "type": "string",
+          "pattern": "^(.*)$"
+        },
+        "artifact": {
+          "$id": "#/properties/links/properties/artifact",
+          "type": "string",
+          "pattern": "^(.*)$"
+        },
+        "self": {
+          "$id": "#/properties/links/properties/self",
+          "type": "string",
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "organization": {
+      "$id": "#/properties/organization",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "owner": {
+      "$id": "#/properties/owner",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "active": {
+      "$id": "#/properties/active",
+      "type": "boolean",
+      "enum": [true,false]
+    },
+    "can_edit": {
+      "$id": "#/properties/can_edit",
+      "type": "boolean",
+      "enum": [true,false]
+    },
+    "featured": {
+      "$id": "#/properties/featured",
+      "type": "boolean",
+      "enum": [true,false]
+    },
+    "tags": {
+      "$id": "#/properties/tags",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/tags/items",
+        "type": "string",
+        "pattern": "^(.*)$"
+      }
+    },
+    "collaborators": {
+      "$id": "#/properties/collaborators",
+      "type": "array"
+    },
+    "visibility": {
+      "$id": "#/properties/visibility",
+      "type": "string",
+      "enum": ["public", "private", "analyst"],
+      "pattern": "^(.*)$"
+    },
+    "guid": {
+      "$id": "#/properties/guid",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "success": {
+      "$id": "#/properties/success",
+      "type": "boolean",
+      "enum": [true,false]
+    },
+    "description": {
+      "$id": "#/properties/description",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "created": {
+      "$id": "#/properties/created",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "subscribers": {
+      "$id": "#/properties/subscribers",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/subscribers/items",
+        "type": "string",
+        "pattern": "^(.*)$"
+      }
+    },
+    "creator": {
+      "$id": "#/properties/creator",
+      "type": "string",
+      "pattern": "^(.*)$"
+    }
+  }
+}

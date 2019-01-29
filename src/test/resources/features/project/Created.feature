@@ -102,4 +102,3 @@ Feature: As a user of riskIQ platform I want to create a project
       | visibility  | public                       |
     Then the api should response with code 400
     And Check JSON schema "project/Create.json"
-    

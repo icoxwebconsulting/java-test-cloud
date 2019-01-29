@@ -332,8 +332,6 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | featured     | false                  |
     And Check JSON schema jsonSchema/schema.json
 
-
-      #REVISAR ******************************************
   @find
   Scenario: Check when i send an private visibility param, the response retrieve all the information related with the project searched
     Given a valid user and key from riskIQ platform
@@ -346,7 +344,6 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And Response includes the following
       | key          | value                  |
       | visibility   | private                |
-
 
   @find
   Scenario: Check when i send an private visibility param, the response retrieve all the information related with the project searched and check with json schema
