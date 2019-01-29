@@ -61,7 +61,7 @@ Feature: As a user of riskIQ platform I want to create a project
       | visibility  | public                       |
       | description | @@description                |
       | featured    | true                         |
-      | tags        | @@randomTags1, @@randomTags2 |
+      | tags        | @@randomTags3                |
     Then the api should response with code 200
     And Check JSON schema "project/Create.json"
 
