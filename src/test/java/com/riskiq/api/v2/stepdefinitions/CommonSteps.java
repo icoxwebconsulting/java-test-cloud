@@ -17,8 +17,8 @@ public class CommonSteps extends FlowData {
 
     @Given("^a valid user and key from riskIQ platform$")
     public void aValidUserFromRiskIQPlatform() {
-        //rs.set(given().auth().preemptive().basic(System.getProperty("username"), System.getProperty("password")));
-        rs.set(given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
+        rs.set(given().auth().preemptive().basic(System.getProperty("username"), System.getProperty("password")));
+        //rs.set(given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
     }
 
     @Given("^a invalid user and invalid key from riskIQ platform$")
