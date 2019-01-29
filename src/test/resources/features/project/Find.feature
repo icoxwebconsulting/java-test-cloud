@@ -5,7 +5,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Given a invalid user and invalid key from riskIQ platform
     When users want to get information of the all project
     Then the api should response with code 401
-    And Check JSON schema "project/InvalidCredentials.json"
+    And Check JSON schema "project/ErrorMessage.json"
 
   @findProject
   Scenario: Check the response of find project by GUID  with wrong credentials the response retrieve error message and code 401 error and check with json schema
@@ -16,7 +16,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | visibility   | public                 |
     When users want to get information of the project by id
     Then the api should response with code 401
-    And Check JSON schema "project/InvalidCredentials.json"
+    And Check JSON schema "project/ErrorMessage.json"
 
   @findProject
   Scenario: Check when i send an specific Owner project with wrong credentials the response retrieve error message and code 401 error and check with json schema
@@ -101,7 +101,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key          | value                  |
       | name         | @@wrongGuid            |
     Then the api should response with code 400
-    And Check JSON schema "project/InvalidGUID.json"
+    And Check JSON schema "project/ErrorMessage.json"
 
   @findProject
   Scenario: Check when i send an not exist GUID project, the response retrieve error message and code 404 error and check with json schema
@@ -110,7 +110,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key          | value                  |
       | project      | @@noExistGuid          |
     Then the api should response with code 404
-    And Check JSON schema "project/NoProjectWithThatID.json"
+    And Check JSON schema "project/ErrorMessage.json"
 
   @findProject
   Scenario: Check when i send an specific Owner project, the response retrieve all the information related with the project searched
