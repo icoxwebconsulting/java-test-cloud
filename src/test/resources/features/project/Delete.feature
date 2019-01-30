@@ -14,7 +14,7 @@ Feature: As a user of riskIQ platform I want to delete a project
     Then the api should response with code 401
     And Check JSON schema "project/ErrorMessage.json"
 
-  @delete
+  @delete2
   Scenario: Check when i want to delete a project, the response retrieve all the information related with the project deleted
     Given a created project with values
       | key        | value        |

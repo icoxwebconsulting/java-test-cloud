@@ -1,6 +1,7 @@
 package com.riskiq.api.v2;
 
 import com.riskiq.api.v2.impl.BodyElement;
+import com.riskiq.api.v2.stepdefinitions.project.impl.Project;
 import gherkin.deps.com.google.gson.Gson;
 import gherkin.deps.com.google.gson.GsonBuilder;
 import io.restassured.response.Response;
@@ -20,6 +21,8 @@ public class FlowData  {
     protected static InheritableThreadLocal<Response> response = new InheritableThreadLocal<>();
     protected static ValidatableResponse json;
     protected static InheritableThreadLocal<String> projectId = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<Project> project = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> owner = new InheritableThreadLocal<>();
     protected static AtomicReference<String> bodyJson = new AtomicReference<>("");
 
 
@@ -44,7 +47,7 @@ public class FlowData  {
         });
 
 
-//        System.out.println(String.format("{ %s }", bodyJson.get()));
+     //   System.out.println(String.format("{ %s }", bodyJson.get()));
         return String.format("{ %s }", bodyJson.get() );
     }
 
@@ -81,6 +84,9 @@ public class FlowData  {
         switch (key) {
             case "guid":
                 bodyElement.setValue(String.valueOf(projectId.get()));
+                break;
+            case "owner":
+                bodyElement.setValue(String.valueOf(owner.get()));
                 break;
             default:
                 bodyElement.setValue("");
