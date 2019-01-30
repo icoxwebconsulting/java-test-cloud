@@ -167,7 +167,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 200
     And the number of projects should be greater than 1
 
-  @find
+  @findPrueba3333
   Scenario: Check when i send an specific Creator project, the response retrieve all the information related with the project searched and
   code 200 and check JSON schema
     Given a valid user and key from riskIQ platform
@@ -177,7 +177,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | visibility   | public                 |
     When users want to get information on the project with the values
       | key          | value                  |
-      | creator      | @@creator              |
+      | creator      | ##creator              |
     Then the api should response with code 200
     And Check JSON schema "project/Find.json"
 
