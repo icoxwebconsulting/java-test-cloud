@@ -51,7 +51,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the project
+    When users want to get information of the project with the values
+      | key        | value                  |
+      | project    | @@guid                 |
     Then the api should response with code 200
     And Response includes the following
       | project    | @@guid                 |
@@ -65,7 +67,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the project
+    When users want to get information of the project with the values
+      | key        | value                  |
+      | project    | @@guid                 |
     Then the api should response with code 200
     And Response includes the following
       | project    | @@guid                 |
@@ -80,7 +84,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the project
+    When users want to get information of the project with the values
+      | key        | value                  |
+      | project    | @@wrong                |
     Then the api should response with code 404
     And Check JSON schema "project/GetAlert.json"
 
@@ -92,7 +98,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the project
+    When users want to get information of the project with the values
+      | key        | value                  |
+      | project    | @@InvalidFormatGuid    |
     Then the api should response with code 400
     And Check JSON schema "project/GetAlert.json"
 
@@ -104,7 +112,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | artifact   | @@artifact             |
     Then the api should response with code 200
     And Response includes the following
       | artifact   | @@guid                 |
@@ -118,7 +128,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | artifact   | @@artifact             |
     Then the api should response with code 200
     And Response includes the following
       | project    | @@guid                 |
@@ -133,7 +145,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | artifact   | @@wrongartifact        |
     Then the api should response with code 404
     And Check JSON schema "project/GetAlert.json"
 
@@ -145,7 +159,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | artifact   | @@InvalidFormatArtifact|
     Then the api should response with code 400
     And Check JSON schema "project/GetAlert.json"
 
@@ -157,7 +173,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | start      | @@starDate             |
     Then the api should response with code 200
     And Response includes the following
       | project    | @@guid                 |
@@ -171,7 +189,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | start      | @@starDate             |
     Then the api should response with code 200
     And Response includes the following
       | project    | @@guid                 |
@@ -186,7 +206,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | start      | @@wrongstarDate        |
     Then the api should response with code 404
     And Check JSON schema "project/GetAlert.json"
 
@@ -198,7 +220,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | start      | @@InvalidFormatStarDate|
     Then the api should response with code 400
     And Check JSON schema "project/GetAlert.json"
 
@@ -210,7 +234,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | end        | @@endDate              |
     Then the api should response with code 200
     And Response includes the following
       | project    | @@guid                 |
@@ -224,7 +250,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | end        | @@endDate              |
     Then the api should response with code 200
     And Response includes the following
       | project    | @@guid                 |
@@ -239,7 +267,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | end        | @@wrongendDate         |
     Then the api should response with code 404
     And Check JSON schema "project/GetAlert.json"
 
@@ -251,7 +281,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifacts  | @@ValuesArtifacts      |
       | project    | @@guid                 |
       | query      | @@ValueQuery           |
-    When users want to get information of the artifact
+    When users want to get information of the artifact with the values
+      | key        | value                  |
+      | end        | @@InvalidFormatEndDate |
     Then the api should response with code 400
     And Check JSON schema "project/GetAlert.json"
 
