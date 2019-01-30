@@ -1,0 +1,169 @@
+{
+  "definitions": {},
+  "required": [
+    "subscribers",
+    "created",
+    "tags",
+    "name",
+    "creator",
+    "success",
+    "links",
+    "organization",
+    "visibility",
+    "owner",
+    "collaborators",
+    "featured",
+    "active",
+    "guid",
+    "can_edit",
+    "description"
+  ],
+  "properties": {
+    "subscribers": {
+      "$id": "#/properties/subscribers",
+      "type": "array",
+      "title": "The Subscribers Schema",
+      "items": {
+        "$id": "#/properties/subscribers/items",
+        "type": "string",
+        "title": "The Items Schema",
+        "default": "",
+        "pattern": "^(.*)$"
+      }
+    },
+    "created": {
+      "$id": "#/properties/created",
+      "type": "string",
+      "title": "The Created Schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    },
+    "tags": {
+      "$id": "#/properties/tags",
+      "type": "array",
+      "title": "The Tags Schema",
+      "items": {
+        "$id": "#/properties/tags/items",
+        "type": "string",
+        "title": "The Items Schema",
+        "default": "",
+        "pattern": "^(.*)$"
+      }
+    },
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "title": "The Name Schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    },
+    "creator": {
+      "$id": "#/properties/creator",
+      "type": "string",
+      "title": "The Creator Schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    },
+    "success": {
+      "$id": "#/properties/success",
+      "type": "boolean",
+      "title": "The Success Schema",
+      "default": false,
+      "enum": [true,false]
+    },
+    "links": {
+      "$id": "#/properties/links",
+      "type": "object",
+      "title": "The Links Schema",
+      "required": [
+        "artifact",
+        "self",
+        "tag"
+      ],
+      "properties": {
+        "artifact": {
+          "$id": "#/properties/links/properties/artifact",
+          "type": "string",
+          "title": "The Artifact Schema",
+          "default": "",
+          "pattern": "^(.*)$"
+        },
+        "self": {
+          "$id": "#/properties/links/properties/self",
+          "type": "string",
+          "title": "The Self Schema",
+          "default": "",
+          "pattern": "^(.*)$"
+        },
+        "tag": {
+          "$id": "#/properties/links/properties/tag",
+          "type": "string",
+          "title": "The Tag Schema",
+          "default": "",
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "organization": {
+      "$id": "#/properties/organization",
+      "type":  ["string", "null"],
+      "title": "The Organization Schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    },
+    "visibility": {
+      "$id": "#/properties/visibility",
+      "type": "string",
+      "title": "The Visibility Schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    },
+    "owner": {
+      "$id": "#/properties/owner",
+      "type": "string",
+      "title": "The Owner Schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    },
+    "collaborators": {
+      "$id": "#/properties/collaborators",
+      "type": "array",
+      "title": "The Collaborators Schema"
+    },
+    "featured": {
+      "$id": "#/properties/featured",
+      "type": "boolean",
+      "title": "The Featured Schema",
+      "default": false,
+      "enum": [true,false]
+    },
+    "active": {
+      "$id": "#/properties/active",
+      "type": "boolean",
+      "title": "The Active Schema",
+      "default": false,
+      "enum": [true,false]
+    },
+    "guid": {
+      "$id": "#/properties/guid",
+      "type": "string",
+      "title": "The Guid Schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    },
+    "can_edit": {
+      "$id": "#/properties/can_edit",
+      "type": "boolean",
+      "title": "The Can_edit Schema",
+      "default": false,
+      "enum": [true,false]
+    },
+    "description": {
+      "$id": "#/properties/description",
+      "type": "string",
+      "title": "The Description Schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    }
+  }
+}
