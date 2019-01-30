@@ -179,6 +179,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key          | value                  |
       | creator      | ##creator              |
     Then the api should response with code 200
+    And the number of projects should be greater than 1
     And Check JSON schema "project/Find.json"
 
   @find

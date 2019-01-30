@@ -50,6 +50,7 @@ public class CreateSteps extends FlowData  {
         Response res = rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project");
         owner.set(res.then().extract().path("owner"));
         projectId.set(res.then().extract().path("guid"));
+        creator.set(res.then().extract().path("creator"));
     }
     @And("^a created project with values by user B$")
     public void aCreatedProjectWithValuesByUserB(DataTable dataTable) throws Throwable {

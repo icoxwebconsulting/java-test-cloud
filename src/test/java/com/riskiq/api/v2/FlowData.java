@@ -23,6 +23,7 @@ public class FlowData  {
     protected static InheritableThreadLocal<String> projectId = new InheritableThreadLocal<>();
     protected static InheritableThreadLocal<Project> project = new InheritableThreadLocal<>();
     protected static InheritableThreadLocal<String> owner = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> creator = new InheritableThreadLocal<>();
     protected static AtomicReference<String> bodyJson = new AtomicReference<>("");
 
 
@@ -87,6 +88,9 @@ public class FlowData  {
                 break;
             case "owner":
                 bodyElement.setValue(String.valueOf(owner.get()));
+                break;
+            case "creator":
+                bodyElement.setValue(String.valueOf(creator.get()));
                 break;
             default:
                 bodyElement.setValue("");
