@@ -73,7 +73,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 200
 
   @findProject
-  Scenario: Chece response of find all projects when i search all project that exist in riskIQ platform is a 200 and check
+  Scenario: Check the response of find all projects when i search all project that exist in riskIQ platform is a 200 and check
   with json schema
     Given a valid user and key from riskIQ platform
     When users want to get information of the all project
