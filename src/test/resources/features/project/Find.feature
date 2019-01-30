@@ -73,7 +73,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 200
 
   @findProject
-  Scenario: Check the response of find all projects when i search all project that exist in riskIQ platform is a 200 and check
+  Scenario: Chece response of find all projects when i search all project that exist in riskIQ platform is a 200 and check
   with json schema
     Given a valid user and key from riskIQ platform
     When users want to get information of the all project
@@ -91,7 +91,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     When users want to get information of the project by id
     Then the api should response with code 200
     And the number of projects should be equal to 1
-    And Check JSON schema jsonSchema/schema.json
+    And Check JSON schema "project/Find.json"
 
 
   @findProject

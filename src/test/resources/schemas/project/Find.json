@@ -1,7 +1,6 @@
 {
   "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://example.com/root.json",
   "type": "object",
   "properties": {
     "results": {
@@ -10,10 +9,16 @@
       "items": {
         "$id": "#/properties/results/items",
         "type": "object",
+        "required": [
+          "collaborators",
+          "creator",
+          "created",
+          "tags"
+        ],
         "properties": {
           "name": {
             "$id": "#/properties/results/items/properties/name",
-            "type": "string",
+            "type": ["string","null"],
             "pattern": "^(.*)$"
           },
           "collaborators": {
@@ -86,11 +91,12 @@
           },
           "organization": {
             "$id": "#/properties/results/items/properties/organization",
-            "type": ["string", "null"]
+            "type": ["string", "null"],
+            "pattern": "^(.*)$"
           },
           "owner": {
             "$id": "#/properties/results/items/properties/owner",
-            "type": "string",
+            "type": ["string","null"],
             "pattern": "^(.*)$"
           },
           "featured": {
