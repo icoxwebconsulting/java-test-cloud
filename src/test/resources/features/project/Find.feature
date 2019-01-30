@@ -99,7 +99,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Given a valid user and key from riskIQ platform
     When users want to get information on the project with the values
       | key          | value                  |
-      | name         | @@wrongGuid            |
+      | project      | @@wrongGuid            |
     Then the api should response with code 400
     And Check JSON schema "project/ErrorMessage.json"
 

@@ -48,8 +48,8 @@ Feature: As a user of riskIQ platform I want to create a project
       | name        | @@namerandom                 |
       | visibility  | public                       |
       | description | @@description                |
-    #  | featured| true                         |
-     | tags        | @@randomTags2                |
+      | featured    | true                         |
+      | tags        | @@randomTags2                |
     Then the api should response with code 200
 
   @createProject
