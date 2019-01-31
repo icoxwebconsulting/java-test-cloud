@@ -19,87 +19,69 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <forkCount>10</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <includes>
+                        <include>**/Parallel*IT.class</include>
+                    </includes>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
+                <groupId>com.github.temyers</groupId>
+                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                <version>4.2.0</version>
                 <executions>
                     <execution>
-                        <id>Run parallel tests</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>integration-test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                    <forkCount>1</forkCount>
-                    <reuseForks>false</reuseForks>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
-                    <disableXmlReport>true</disableXmlReport>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.trivago.rta</groupId>
-                <artifactId>cucable-plugin</artifactId>
-                <version>1.3.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-test-resources</id>
-                        <phase>generate-test-resources</phase>
-                        <goals>
-                            <goal>parallel</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sourceRunnerTemplateFile>src/test/resources/feature.template</sourceRunnerTemplateFile>
-                    <sourceFeatures>src/test/resources/features</sourceFeatures>
-                    <generatedFeatureDirectory>${project.build.directory}/parallel/features</generatedFeatureDirectory>
-                    <generatedRunnerDirectory>${project.build.directory}/parallel/runners</generatedRunnerDirectory>
-                    <parallelizationMode>features</parallelizationMode>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>add-test-source</id>
+                        <id>generateRunners</id>
                         <phase>generate-test-sources</phase>
                         <goals>
-                            <goal>add-test-source</goal>
+                            <goal>generateRunners</goal>
                         </goals>
+                        <configuration>
+                            <!-- Mandatory -->
+                            <!-- List of package names to scan for glue code. -->
+                            <glue>
+                                <package>com.riskiq.api.v2.stepdefinitions</package>
+                            </glue>
+                            <!-- These are optional, with the default values -->
+                            <!-- Where to output the generated tests -->
+                            <outputDirectory>${project.build.directory}/generated-test-sources/cucumber</outputDirectory>
+                            <!-- The directory, which must be in the root of the runtime classpath, containing your feature files.  -->
+                            <featuresDirectory>src/test/resources/features/</featuresDirectory>
+                            <!-- Directory where the cucumber report files shall be written  -->
+                            <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+                            <!-- List of cucumber plugins. When none are provided the json formatter is used. For more
+                                 advanced usage see section about configuring cucumber plugins -->
+                            <plugins>
+                                <plugin>
+                                    <name>json</name>
+                                </plugin>
+                                <plugin>
+                                    <name>pretty</name>
+                                </plugin>
+                            </plugins>
+                            <!-- CucumberOptions.strict property -->
+                            <strict>true</strict>
+                            <!-- CucumberOptions.monochrome property -->
+                            <monochrome>false</monochrome>
+                            <!-- The tags to run, maps to CucumberOptions.tags property. Default is no tags. -->
+                            <!-- Generate TestNG runners instead of JUnit ones. -->
+                            <useTestNG>false</useTestNG>
+                            <!-- The naming scheme to use for the generated test classes.  One of ['simple', 'feature-title', 'pattern'] -->
+                            <namingScheme>pattern</namingScheme>
+                            <!-- The class naming pattern to use.  Only required/used if naming scheme is 'pattern'.-->
+                            <namingPattern>Parallel{c}IT</namingPattern>
+                            <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
+                            <parallelScheme>SCENARIO</parallelScheme>
+                            <!-- Specify a custom template for the generated sources (this is a path relative to the project base directory) -->
+                            <!--<customVmTemplate>src/test/resources/cucumber-custom-runner.vm</customVmTemplate>-->
+                            <!-- Specify a custom package name for generated sources. Default is no package.-->
+                            <packageName>com.riskiq.api.v2</packageName>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <sources>
-                        <source>${project.build.directory}/parallel/runners</source>
-                    </sources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.trivago.rta</groupId>
-                <artifactId>cluecumber-report-plugin</artifactId>
-                <version>1.6.2</version>
-                <executions>
-                    <execution>
-                        <id>report</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>reporting</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sourceJsonReportDirectory>${project.build.directory}/cucumber-report</sourceJsonReportDirectory>
-                    <generatedHtmlReportDirectory>${project.build.directory}/test-report</generatedHtmlReportDirectory>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -109,6 +91,11 @@
             <artifactId>lombok</artifactId>
             <version>1.18.4</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M3</version>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
@@ -156,6 +143,11 @@
             <artifactId>json-simple</artifactId>
             <version>1.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.temyers</groupId>
+            <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+            <version>4.2.0</version>
         </dependency>
     </dependencies>
 </project>
