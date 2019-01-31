@@ -29,6 +29,13 @@ pipeline {
                 }
             }
             post {
+                always{
+                    cucumber fileIncludePattern: '**/*.json',
+                             sortingMethod: 'ALPHABETICAL',
+                             jsonReportDirectory: 'target'
+                }
+            }
+            /*post {
                 always {
                     publishHTML (target: [
                             allowMissing: false,
@@ -39,8 +46,9 @@ pipeline {
                             reportName: "Executive Report"
                     ])
                 }
-            }
+            }*/
         }
+
     }
     options {
         timestamps()
