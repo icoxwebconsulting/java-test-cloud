@@ -1,6 +1,12 @@
 #!groovy
 pipeline {
-    agent any
+    agent { label 'master'}
+
+    parameters {
+        choice( name: 'TAG',
+                choices: "Project\nCreate\nDelete\nFind\nAlert",
+                description: '')
+    }
 
     tools {
         maven 'Maven3'
@@ -23,8 +29,6 @@ pipeline {
             }
         }
 
-        parameters { choice(name: 'TAG', choices: "Project\nCreate\nDelete\nFind\nAlert", description: '') }
-        
         stage ('Test') {
             steps  {
                 withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
