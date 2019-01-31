@@ -25,6 +25,19 @@ public class FlowData  {
     protected static InheritableThreadLocal<Project> project = new InheritableThreadLocal<>();
     protected static InheritableThreadLocal<String> owner = new InheritableThreadLocal<>();
     protected static InheritableThreadLocal<String> creator = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> visibility = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> organization = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<Boolean> featured = new InheritableThreadLocal<>();
+
+
+    protected static InheritableThreadLocal<String> wrongGuid = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> noExistGuid = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> wrongOwner = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> wrongCreator = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> wrongOrganization = new InheritableThreadLocal<>();
+    protected static InheritableThreadLocal<String> wrongVisibility = new InheritableThreadLocal<>();
+
+
     protected static AtomicReference<String> bodyJson = new AtomicReference<>("");
     protected static InheritableThreadLocal<String> query = new InheritableThreadLocal<>();
 
@@ -94,6 +107,33 @@ public class FlowData  {
                 break;
             case "creator":
                 bodyElement.setValue(String.valueOf(creator.get()));
+                break;
+            case "visibility":
+                bodyElement.setValue(String.valueOf(visibility.get()));
+                break;
+            case "organization":
+                bodyElement.setValue(String.valueOf(organization.get()));
+                break;
+            case "featured":
+                bodyElement.setValue(String.valueOf(featured.get()));
+                break;
+            case "wrongGuid":
+                bodyElement.setValue(String.valueOf("279abfa2-9e97-0cb9-d2bb995bca7c5"));
+                break;
+            case "noExistGuid":
+                bodyElement.setValue(String.valueOf("279bbfb2-9e97-0cb9-d2bb-995bca7c5909"));
+                break;
+            case "wrongOwner":
+                bodyElement.setValue(String.valueOf("OtherOwner"));
+                break;
+            case "wrongCreator":
+                bodyElement.setValue(String.valueOf("OtherCreator"));
+                break;
+            case "wrongOrganization":
+                bodyElement.setValue(String.valueOf("OtherOrganization"));
+                break;
+            case "wrongVisibility":
+                bodyElement.setValue(String.valueOf("OtherVisibility"));
                 break;
             default:
                 bodyElement.setValue("");

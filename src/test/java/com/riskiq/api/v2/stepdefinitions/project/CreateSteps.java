@@ -42,11 +42,29 @@ public class CreateSteps extends FlowData  {
 
     @And("^a created project with values$")
     public void aCreatedProjectWithValues(DataTable dataTable) throws Throwable {
+        //rs.set(RestAssured.given().auth().preemptive().basic("robertm@icox.com", "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"));
         rs.set(RestAssured.given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
         Response res = rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project");
         owner.set(res.then().extract().path("owner"));
         projectId.set(res.then().extract().path("guid"));
         creator.set(res.then().extract().path("creator"));
+        visibility.set(res.then().extract().path("visibility"));
+        organization.set(res.then().extract().path("organization"));
+        featured.set(res.then().extract().path("featured"));
+    }
+
+    @And("^a created project with this values$")
+    public void aCreatedProjectWithThisValues(DataTable dataTable) throws Throwable {
+        rs.set(RestAssured.given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "258bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
+        Response res = rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project");
+        owner.set(res.then().extract().path("owner"));
+        projectId.set(res.then().extract().path("guid"));
+        creator.set(res.then().extract().path("creator"));
+        visibility.set(res.then().extract().path("visibility"));
+        organization.set(res.then().extract().path("organization"));
+        featured.set(res.then().extract().path("featured"));
+
+
     }
 
 
