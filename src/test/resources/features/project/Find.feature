@@ -187,6 +187,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And Check JSON schema "project/Find.json"
 
   #debe dar 400 pero da 200
+
   @findProject
   Scenario: Check when i send an invalid Creator project, the response retrieve error message and code 400 error and check with json schema
     Given a valid user and key from riskIQ platform
@@ -328,10 +329,10 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | name         | @@namerandom           |
       | visibility   | public                 |
       | featured     | true                   |
-    When users want to get information on the project with the values
+    When users want to get information of the project by id
       | key          | value                  |
       | featured     | ##featured             |
-    #And Check JSON schema "project/Find.json"
+    And Check JSON schema "project/Find.json"
 
   @findProject
   Scenario: Check when i send an private visibility param, the response retrieve all the information related with the project searched
