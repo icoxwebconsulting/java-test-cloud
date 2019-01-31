@@ -6,8 +6,6 @@ pipeline {
         maven 'Maven3'
     }
 
-    parameters { choice(name: 'TAG', choices: "Project\nCreate\nDelete\nFind\nAlert", description: '') }
-
     stages {
 
         stage ('Initialize') {
@@ -25,6 +23,8 @@ pipeline {
             }
         }
 
+        parameters { choice(name: 'TAG', choices: "Project\nCreate\nDelete\nFind\nAlert", description: '') }
+        
         stage ('Test') {
             steps  {
                 withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
