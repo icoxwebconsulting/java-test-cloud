@@ -22,8 +22,8 @@ public class CommonSteps extends FlowData {
 
     @Given("^a valid user and key from riskIQ platform$")
     public void aValidUserFromRiskIQPlatform() {
-      //rs.set(given().auth().preemptive().basic(System.getProperty("username"), System.getProperty("password")));
-        rs.set(given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
+      rs.set(given().auth().preemptive().basic(System.getProperty("username"), System.getProperty("password")));
+     //   rs.set(given().auth().preemptive().basic("mauro@icox.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
     }
 
 
@@ -36,7 +36,6 @@ public class CommonSteps extends FlowData {
 
     @Then("^the api should response with code (\\d+)$")
     public void theApiShouldResponseWithCode(Integer statusCode) {
-        System.out.println(response.get().then().statusCode(statusCode));
         json =   response.get().then().statusCode(statusCode);
 
     }
