@@ -31,18 +31,13 @@ public class CreateSteps extends FlowData  {
 
     @When("^users want to create project with the values$")
     public void usersWantToCreateProjectWithTheValues(DataTable dataTable) {
-       // response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project"));
-
-        rs.set(RestAssured.given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
-        Response res = rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project");
-        owner.set(res.then().extract().path("owner"));
-        projectId.set(res.then().extract().path("guid"));
-        creator.set(res.then().extract().path("creator"));
-        visibility.set(res.then().extract().path("visibility"));
-        organization.set(res.then().extract().path("organization"));
-        featured.set(res.then().extract().path("featured"));
-
-
+        response.set(rs.get().contentType(ContentType.TEXT).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project"));
+        owner.set(response.get().path("owner"));
+        projectId.set(response.get().path("guid"));
+        creator.set(response.get().path("creator"));
+        visibility.set(response.get().path("visibility"));
+        organization.set(response.get().path("organization"));
+        featured.set(response.get().path("featured"));
     }
 
     @Then("^the requested data match with the schema \"([^\"]*)\"$")
@@ -55,13 +50,21 @@ public class CreateSteps extends FlowData  {
     public void aCreatedProjectWithValues(DataTable dataTable) throws Throwable {
         //rs.set(RestAssured.given().auth().preemptive().basic("robertm@icox.com", "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"));
         rs.set(RestAssured.given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
-        Response res = rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project");
-        owner.set(res.then().extract().path("owner"));
-        projectId.set(res.then().extract().path("guid"));
-        creator.set(res.then().extract().path("creator"));
-        visibility.set(res.then().extract().path("visibility"));
-        organization.set(res.then().extract().path("organization"));
-        featured.set(res.then().extract().path("featured"));
+        response.set(rs.get().contentType(ContentType.TEXT).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project"));
+        owner.set(response.get().path("owner"));
+        projectId.set(response.get().path("guid"));
+        creator.set(response.get().path("creator"));
+        visibility.set(response.get().path("visibility"));
+        organization.set(response.get().path("organization"));
+        featured.set(response.get().path("featured"));
+    }
+
+
+
+    @When("^a created project with values with invalid credentials$")
+    public void aCreatedProjectWithInvalidCredentials(DataTable dataTable) throws Throwable {
+        response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project"));
+
     }
 
 

@@ -38,9 +38,9 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | key     | value  |
       | project | ##guid |
     Then the api should response with code 200
-    And Response includes the following
-      | project | ##guid      |
-      | query   | example.org |
+    #And Response includes the following
+     # | project | ##guid      |
+     # | query   | example.org |
 
   @getAlerts
   Scenario: Check when i send project, the response retrieve all the information related with the project searched and check with json schema

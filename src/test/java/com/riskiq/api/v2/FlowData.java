@@ -60,9 +60,6 @@ public class FlowData  {
 
 
         });
-
-      //  System.out.println(String.format("{ %s }", bodyJson.get() ));
-
        // return String.format("{  \"artifacts\": [ { %s  }  ] }", bodyJson.get());
         return String.format("{ %s }", bodyJson.get() );
 

@@ -13,7 +13,7 @@ Feature: As a user of riskIQ platform I want to create a project
   @createProject
   Scenario: Check when i send an invalid visibility params, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
-    When users want to create project with the values
+    When  users want to create project with the values
       | key         | value                        |
       | name        | @@namerandom                 |
       | visibility  | other value                  |
@@ -23,7 +23,7 @@ Feature: As a user of riskIQ platform I want to create a project
   @createProject
   Scenario: Check when I send an integer value in the visibility field, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
-    When users want to create project with the values
+    When  users want to create project with the values
       | key         | value                        |
       | name        | @@namerandom                 |
       | visibility  | 100                          |
@@ -33,14 +33,14 @@ Feature: As a user of riskIQ platform I want to create a project
   @createProject
   Scenario: Check when I send an integer value in the field name, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
-    When users want to create project with the values
+    When  users want to create project with the values
       | key         | value                        |
       | name        | 100                          |
       | visibility  | public                       |
     Then the api should response with code 400
     And Check JSON schema "project/ErrorMessage.json"
 
-  @createProject1
+  @createProject
   Scenario: Check when i send an list of valid params, the response retrieve all the information related with the project created
    Given a valid user and key from riskIQ platform
    When users want to create project with the values
@@ -92,13 +92,13 @@ Feature: As a user of riskIQ platform I want to create a project
       | key         | value                        |
       | name        | @@namerandom                 |
     Then the api should response with code 400
-    And Check JSON schema "project/Create.json"
+    And Check JSON schema "project/ErrorMessage.json"
 
   @createProject
   Scenario: Check when i send just a visibility params, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
-    When users want to create project with the values
+    When  users want to create project with the values
       | key         | value                        |
       | visibility  | public                       |
     Then the api should response with code 400
-    And Check JSON schema "project/Create.json"
+    And Check JSON schema "project/ErrorMessage.json"

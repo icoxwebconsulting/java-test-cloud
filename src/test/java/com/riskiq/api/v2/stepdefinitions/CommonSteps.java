@@ -36,8 +36,9 @@ public class CommonSteps extends FlowData {
 
     @Then("^the api should response with code (\\d+)$")
     public void theApiShouldResponseWithCode(Integer statusCode) {
+        System.out.println(response.get().then().statusCode(statusCode));
         json =   response.get().then().statusCode(statusCode);
-        response.get().getBody().prettyPrint();
+
     }
 
 
@@ -46,7 +47,6 @@ public class CommonSteps extends FlowData {
         for (Map.Entry<String, String> field : responseFields.entrySet()) {
 
             if(StringUtils.containsIgnoreCase(field.getValue(), "##")){
-                System.out.println("===================");
                 Map.Entry<String,String> entry =
                         new AbstractMap.SimpleEntry<String, String>(field.getKey(), field.getValue());
                 entry = validateSpecificValue(entry);
@@ -54,7 +54,6 @@ public class CommonSteps extends FlowData {
             }else{
                 matchJsonValue(field, json);
             }
-            System.out.println("PASOO");
 
         }
     }

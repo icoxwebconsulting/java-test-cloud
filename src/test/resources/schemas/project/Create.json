@@ -94,7 +94,7 @@
     },
     "organization": {
       "$id": "#/properties/organization",
-      "type": "string",
+      "type":   ["string", "null"],
       "pattern": "^(.*)$"
     },
     "links": {
