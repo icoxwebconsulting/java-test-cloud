@@ -6,7 +6,7 @@ pipeline {
         maven 'Maven3'
     }
 
-    parameters { choice(name: 'TAG', choices: ['Project', 'Create', 'Delete', 'Find', 'Alert'], description: '') }
+    parameters { choice(name: 'TAG', choices: "Project\nCreate\nDelete\nFind\nAlert", description: '') }
 
     stages {
 
@@ -28,7 +28,7 @@ pipeline {
         stage ('Test') {
             steps  {
                 withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    sh "mvn -Dcucumber.options='--tags @$parameters.TAG' -Dusername=$username -Dpassword=$password clean test"
+                    sh "mvn -Dcucumber.options='--tags @${parameters.TAG}' -Dusername=$username -Dpassword=$password clean test"
                 }
             }
             post {
