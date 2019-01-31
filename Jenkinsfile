@@ -1,7 +1,7 @@
 #!groovy
 pipeline {
     agent any
-    
+
     tools {
         maven 'Maven3'
     }
@@ -28,7 +28,7 @@ pipeline {
         stage ('Test') {
             steps  {
                 withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    sh "mvn -Dcucumber.options='--tags @${parameters.TAG}' -Dusername=$username -Dpassword=$password clean test"
+                    sh "mvn -Dcucumber.options='--tags @$parameters.TAG' -Dusername=$username -Dpassword=$password clean test"
                 }
             }
             post {
