@@ -31,6 +31,7 @@ pipeline {
 
         stage ('Test') {
             steps  {
+                if ()
                 withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
                     sh "mvn -Dcucumber.options='--tags @${Scenario}' -Dusername=$username -Dpassword=$password clean test"
                 }

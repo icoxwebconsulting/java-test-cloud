@@ -1,6 +1,6 @@
 Feature: As a user of riskIQ platform I want to see a project or projects using search criteria
 
-  @getAlerts
+  @Alerts
   Scenario: Check the response of find all alerts when that exist in riskIQ platform,
   with wrong credentials the response retrieve error message and code error and check with Json schema
     Given a invalid user and invalid key from riskIQ platform
@@ -9,21 +9,21 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And Check JSON schema "project/ErrorMessage.json"
 
 #reporting in jira
-  @getAlerts
+  @Alerts
   Scenario: Check the response of find all alerts when that exist in riskIQ platform is a 200
     Given a valid user and key from riskIQ platform
     When users want to get information of alerts without params
     Then the api should response with code 200
 
 
-  @getAlerts
+  @Alerts
   Scenario: Check the response of find all projects when that exist in riskIQ platform is a 200
     Given a valid user and key from riskIQ platform
     When users want to get information of alerts without params
     Then the api should response with code 200
     # And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts1
+  @Alerts1
   Scenario: Check when i send project, the response retrieve all the information related with the project searched
     Given a created project with values
       | key        | value        |
@@ -42,7 +42,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
      # | project | ##guid      |
      # | query   | example.org |
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send project, the response retrieve all the information related with the project searched and check with json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -59,7 +59,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | query   | @@ValueQuery |
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send wrong value project, tthe response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -73,7 +73,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 404
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send invalid format project, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -87,7 +87,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 400
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send an artifact, the response retrieve all the information related with the artifact searched
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -103,7 +103,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | artifact | @@guid       |
       | query    | @@ValueQuery |
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send artifact, the response retrieve all the information related with the artifact searched and check with json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -120,7 +120,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | query   | @@ValueQuery |
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send wrong value artifact, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -134,7 +134,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 404
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send invalid format artifact, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -148,7 +148,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 400
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send an start date, the response retrieve all the information related with the artifact searched
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -164,7 +164,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | project | @@guid       |
       | query   | @@ValueQuery |
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send an start date, the response retrieve all the information related with the artifact searched and check with json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -181,7 +181,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | query   | @@ValueQuery |
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send wrong value start date, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -195,7 +195,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 404
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send invalid format start date, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -209,7 +209,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 400
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send an end date, the response retrieve all the information related with the artifact searched
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -225,7 +225,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | project | @@guid       |
       | query   | @@ValueQuery |
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send an end date, the response retrieve all the information related with the artifact searched and check with json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -242,7 +242,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
       | query   | @@ValueQuery |
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send wrong value end date, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
@@ -256,7 +256,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 404
     And Check JSON schema "project/GetAlert.json"
 
-  @getAlerts
+  @Alerts
   Scenario: Check when i send invalid format end date, the response retrieve error message and code error and check with Json schema
     Given a valid user and key from riskIQ platform
     And a created artifact with values
