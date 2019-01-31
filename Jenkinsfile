@@ -25,8 +25,7 @@ pipeline {
 
         stage ('Download Project') {
             steps {
-                //git url: 'https://github.com/icoxwebconsulting/java-test-cloud.git'
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git-credentials', url: 'https://github.com/icoxwebconsulting/java-test-cloud.git']]])
+                git url: 'https://github.com/icoxwebconsulting/java-test-cloud.git'
             }
         }
 
