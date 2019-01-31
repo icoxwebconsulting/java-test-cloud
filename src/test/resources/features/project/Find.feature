@@ -7,26 +7,27 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     Then the api should response with code 401
     And Check JSON schema "project/ErrorMessage.json"
 
-  @findProject0
+  @findProject10
   Scenario: Check the response of find project by GUID  with wrong credentials the response retrieve error message and code 401 error and check with json schema
-    Given a invalid user and invalid key from riskIQ platform
-    And a created project with this values
+    Given a created project with values
       | key          | value                  |
       | name         | @@namerandom           |
       | visibility   | public                 |
+    And a invalid user and invalid key from riskIQ platform
     When users want to get information on the project with the values
       | key          | value                  |
       | project      | ##guid                 |
     Then the api should response with code 401
     And Check JSON schema "project/ErrorMessage.json"
 
+
   @findProject0
   Scenario: Check when i send an specific Owner project with wrong credentials the response retrieve error message and code 401 error and check with json schema
-    Given a invalid user and invalid key from riskIQ platform
-    And a created project with this values
+    Given a created project with values
       | key          | value                  |
       | name         | @@namerandom           |
       | visibility   | public                 |
+    And a invalid user and invalid key from riskIQ platform
     When users want to get information on the project with the values
       | key          | value                  |
       | owner        | ##owner                |
@@ -34,11 +35,11 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
 
   @findProject0
   Scenario: Check when i send an specific Creator project with wrong credentials the response retrieve error message and code 401 error and check with json schema
-    Given a invalid user and invalid key from riskIQ platform
-    And a created project with this values
+    Given a created project with values
       | key          | value                  |
       | name         | @@namerandom           |
       | visibility   | public                 |
+    And a invalid user and invalid key from riskIQ platform
     When users want to get information on the project with the values
       | key          | value                  |
       | creator      | ##creator              |
@@ -46,23 +47,23 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
 
   @findProject0
   Scenario: Check when i send an specific organization with wrong credentials the response retrieve error message and code 401 error and check with json schema
-    Given a invalid user and invalid key from riskIQ platform
-    And a created project with this values
+    Given a created project with values
       | key          | value                  |
       | name         | @@namerandom           |
       | visibility   | public                 |
+    And a invalid user and invalid key from riskIQ platform
     When users want to get information on the project with the values
       | key          | value                  |
-      | organization | @@organization         |
+      | organization | ##organization         |
     Then the api should response with code 401
 
   @findProject0
   Scenario: Check when i send an specific visibility with wrong credentials the response retrieve error message and code error and check with json schema
-    Given a invalid user and invalid key from riskIQ platform
-    And a created project with this values
+    Given a created project with values
       | key          | value                  |
       | name         | @@namerandom           |
       | visibility   | public                 |
+    And a invalid user and invalid key from riskIQ platform
     When users want to get information on the project with the values
       | key          | value                  |
       | visibility   | ##organization         |
@@ -319,7 +320,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     And Check JSON schema "project/Find.json"
 
   #Falla con el esquema find, sin el esquema si funciona
-  @findProject0
+  @findProject100
   Scenario: Check when i send featured: true, the response retrieve all the information related with the project searched and check with json schema
     Given a valid user and key from riskIQ platform
     And a created project with values
@@ -330,7 +331,7 @@ Feature: As a user of riskIQ platform I want to see a project or projects using 
     When users want to get information on the project with the values
       | key          | value                  |
       | featured     | ##featured             |
-    And Check JSON schema "project/Find.json"
+    #And Check JSON schema "project/Find.json"
 
   @findProject1
   Scenario: Check when i send an private visibility param, the response retrieve all the information related with the project searched

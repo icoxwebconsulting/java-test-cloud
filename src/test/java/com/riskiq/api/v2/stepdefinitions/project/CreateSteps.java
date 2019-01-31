@@ -31,7 +31,18 @@ public class CreateSteps extends FlowData  {
 
     @When("^users want to create project with the values$")
     public void usersWantToCreateProjectWithTheValues(DataTable dataTable) {
-        response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project"));
+       // response.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project"));
+
+        rs.set(RestAssured.given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
+        Response res = rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project");
+        owner.set(res.then().extract().path("owner"));
+        projectId.set(res.then().extract().path("guid"));
+        creator.set(res.then().extract().path("creator"));
+        visibility.set(res.then().extract().path("visibility"));
+        organization.set(res.then().extract().path("organization"));
+        featured.set(res.then().extract().path("featured"));
+
+
     }
 
     @Then("^the requested data match with the schema \"([^\"]*)\"$")
@@ -53,20 +64,6 @@ public class CreateSteps extends FlowData  {
         featured.set(res.then().extract().path("featured"));
     }
 
-    @And("^a created project with this values$")
-    public void aCreatedProjectWithThisValues(DataTable dataTable) throws Throwable {
-        rs.set(RestAssured.given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "258bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
-        Response res = rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project");
-        owner.set(res.then().extract().path("owner"));
-        projectId.set(res.then().extract().path("guid"));
-        creator.set(res.then().extract().path("creator"));
-        visibility.set(res.then().extract().path("visibility"));
-        organization.set(res.then().extract().path("organization"));
-        featured.set(res.then().extract().path("featured"));
-
-
-    }
-
 
     @And("^a created project with values by user B$")
     public void aCreatedProjectWithValuesByUserB(DataTable dataTable) throws Throwable {
@@ -74,7 +71,6 @@ public class CreateSteps extends FlowData  {
         projectId.set(rs.get().contentType(ContentType.JSON).body(dataTableToJson(dataTable.asList(BodyElement.class))).put("/project").then().extract().path("guid"));
 
     }
-
 
     @When("^users want to get information of the project by id$")
     public void usersWantToGetInformationOnTheProject() throws Throwable {
