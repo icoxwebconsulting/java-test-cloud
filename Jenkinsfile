@@ -31,8 +31,16 @@ pipeline {
 
         stage ('Test') {
             steps  {
-                withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    sh "mvn -Dcucumber.options='--tags @${Scenario}' -Dusername=$username -Dpassword=$password clean test"
+                script {
+                    if ("${Scenario}" == 'Project') {
+                        withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
+                            sh "mvn -Dusername=$username -Dpassword=$password clean test"
+                        }
+                    } else {
+                        withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
+                            sh "mvn -Dcucumber.options='--tags @${Scenario}' -Dusername=$username -Dpassword=$password clean test"
+                        }
+                    }
                 }
             }
             post {
@@ -42,6 +50,18 @@ pipeline {
                              jsonReportDirectory: 'target/cucumber-parallel'
                 }
             }
+            /*post {
+                always {
+                    publishHTML (target: [
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: 'target/test-report',
+                            reportFiles: 'index.html',
+                            reportName: "Executive Report"
+                    ])
+                }
+            }*/
         }
 
     }
