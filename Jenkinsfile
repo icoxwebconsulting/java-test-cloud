@@ -1,6 +1,13 @@
 #!groovy
 pipeline {
-    agent any
+    agent { label 'master'}
+
+    parameters {
+        choice( name: 'Scenario',
+                choices: "Project\nCreate\nDelete\nFind\nAlert",
+                description: '')
+    }
+
     tools {
         maven 'Maven3'
     }
@@ -25,10 +32,17 @@ pipeline {
         stage ('Test') {
             steps  {
                 withCredentials([usernamePassword(credentialsId: 'mauro', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    sh "mvn -Dcucumber.options='--tags @findProjectTest1' -Dusername=$username -Dpassword=$password clean verify"
+                    sh "mvn -Dcucumber.options='--tags @$parameters.Scenario' -Dusername=$username -Dpassword=$password clean test"
                 }
             }
             post {
+                always{
+                    cucumber fileIncludePattern: '**/*.json',
+                             sortingMethod: 'ALPHABETICAL',
+                             jsonReportDirectory: 'target/cucumber-parallel'
+                }
+            }
+            /*post {
                 always {
                     publishHTML (target: [
                             allowMissing: false,
@@ -39,8 +53,9 @@ pipeline {
                             reportName: "Executive Report"
                     ])
                 }
-            }
+            }*/
         }
+
     }
     options {
         timestamps()
