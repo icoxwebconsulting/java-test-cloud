@@ -10,6 +10,7 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.riskiq.api.v2.misc.Utils.createJson;
@@ -25,7 +26,7 @@ public class FlowData  {
     protected static InheritableThreadLocal<String> owner = new InheritableThreadLocal<>();
     protected static InheritableThreadLocal<String> creator = new InheritableThreadLocal<>();
     protected static AtomicReference<String> bodyJson = new AtomicReference<>("");
-
+    protected static InheritableThreadLocal<String> query = new InheritableThreadLocal<>();
 
     public  String dataTableToJson(List<BodyElement> bodyElements) {
         this.bodyJson = new AtomicReference<>("");
@@ -47,14 +48,16 @@ public class FlowData  {
 
         });
 
+      //  System.out.println(String.format("{ %s }", bodyJson.get() ));
 
-     //   System.out.println(String.format("{ %s }", bodyJson.get()));
+       // return String.format("{  \"artifacts\": [ { %s  }  ] }", bodyJson.get());
         return String.format("{ %s }", bodyJson.get() );
+
     }
 
     public BodyElement validateRandomValue(BodyElement bodyElement){
 
-        if(!bodyElement.getKey().equalsIgnoreCase("tags") && !bodyElement.getKey().equalsIgnoreCase("query")){
+        if(!bodyElement.getKey().equalsIgnoreCase("tags") ){
             String[] value = bodyElement.getValue().split("@@");
            String random =  value[1];
             random += "_"+generateRandomString();
@@ -98,5 +101,60 @@ public class FlowData  {
         }
 
         return bodyElement;
+    }
+
+
+    public  Map.Entry<String, String>  validateSpecificValue(Map.Entry<String, String> field){
+
+        String[] value = field.getValue().split("##");
+        String key =  value[1];
+        System.out.println("========FIELD========");
+        System.out.println(key);
+        switch (key) {
+            case "guid":
+                field.setValue(projectId.get());
+                break;
+            case "owner":
+                field.setValue(String.valueOf(owner.get()));
+                break;
+            case "creator":
+                field.setValue(String.valueOf(creator.get()));
+                break;
+            default:
+                field.setValue("");
+                break;
+        }
+
+        System.out.println("========FIELD========");
+        System.out.println(field);
+        return field;
+    }
+
+
+
+    public  String dataTableToJsonBulkArtifact(List<BodyElement> bodyElements) {
+        this.bodyJson = new AtomicReference<>("");
+        bodyElements.forEach(bodyElement -> {
+            Boolean isLast = (bodyElements.size() == bodyElements.indexOf(bodyElement) + 1);
+
+            //validate to random (Create)
+            if(StringUtils.containsIgnoreCase(bodyElement.getValue(), "@@")){
+                this.bodyJson =   createJson(validateRandomValue(bodyElement) , isLast, this.bodyJson);
+
+            }else if(StringUtils.containsIgnoreCase(bodyElement.getValue(), "##")){
+                //create json whit variable (find)
+                this.bodyJson =   createJson(validateSpecificValue(bodyElement)  , isLast, this.bodyJson);
+            }else{
+                //create json
+                this.bodyJson =   createJson(bodyElement , isLast, this.bodyJson);
+            }
+
+
+        });
+
+        //  System.out.println(String.format("{ %s }", bodyJson.get() ));
+
+        return String.format("{  \"artifacts\": [ { %s  }  ] }", bodyJson.get());
+
     }
 }

@@ -1,12 +1,8 @@
 package com.riskiq.api.v2.stepdefinitions.project;
 
 
-import com.riskiq.api.v2.stepdefinitions.project.impl.Project;
-import cucumber.api.java.en.Given;
-import gherkin.deps.com.google.gson.Gson;
-import gherkin.deps.com.google.gson.GsonBuilder;
+
 import io.restassured.RestAssured;
-import io.restassured.module.jsv.JsonSchemaValidator;
 
 import com.riskiq.api.v2.FlowData;
 import com.riskiq.api.v2.impl.BodyElement;
@@ -52,6 +48,8 @@ public class CreateSteps extends FlowData  {
         projectId.set(res.then().extract().path("guid"));
         creator.set(res.then().extract().path("creator"));
     }
+
+
     @And("^a created project with values by user B$")
     public void aCreatedProjectWithValuesByUserB(DataTable dataTable) throws Throwable {
         rs.set(RestAssured.given().auth().preemptive().basic("robertm@icox.com", "434f651ed6a208d9cdedd7ab8d057d4214122cd64045a9d08d8768402f16749a"));

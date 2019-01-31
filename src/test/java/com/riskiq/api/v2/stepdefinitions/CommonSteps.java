@@ -1,11 +1,16 @@
 package com.riskiq.api.v2.stepdefinitions;
 
 import com.riskiq.api.v2.FlowData;
+import com.riskiq.api.v2.impl.BodyElement;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.riskiq.api.v2.misc.Utils.matchJsonValue;
@@ -21,6 +26,7 @@ public class CommonSteps extends FlowData {
         rs.set(given().auth().preemptive().basic("alejandrodavidsalazar@gmail.com", "316bf07182644307e9e5b459f3389b6f46de7efe29386c74857a13afd8aad9af"));
     }
 
+
     @Given("^a invalid user and invalid key from riskIQ platform$")
     public void aInvalidUserFromRiskIQPlatform() {
         //rs.set(given().auth().preemptive().basic(System.getProperty("username"), System.getProperty("password")));
@@ -31,15 +37,30 @@ public class CommonSteps extends FlowData {
     @Then("^the api should response with code (\\d+)$")
     public void theApiShouldResponseWithCode(Integer statusCode) {
         json =   response.get().then().statusCode(statusCode);
+        response.get().getBody().prettyPrint();
     }
 
 
     @And("Response includes the following$")
     public void response_equals(Map<String,String> responseFields){
         for (Map.Entry<String, String> field : responseFields.entrySet()) {
-            matchJsonValue(field, json);
+
+            if(StringUtils.containsIgnoreCase(field.getValue(), "##")){
+                System.out.println("===================");
+                Map.Entry<String,String> entry =
+                        new AbstractMap.SimpleEntry<String, String>(field.getKey(), field.getValue());
+                entry = validateSpecificValue(entry);
+                matchJsonValue(entry, json);
+            }else{
+                matchJsonValue(field, json);
+            }
+            System.out.println("PASOO");
+
         }
     }
+
+
+
 
     @And("Check JSON schema \"([^\"}]*)\"$")
     public void response_equals(String schemeUrl){

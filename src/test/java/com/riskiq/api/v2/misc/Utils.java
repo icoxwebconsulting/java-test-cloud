@@ -19,6 +19,7 @@ public class Utils {
 
 
     public synchronized static ValidatableResponse matchJsonValue(Map.Entry<String, String> field, ValidatableResponse json) {
+
         if (StringUtils.isNumeric(field.getValue())) {
             //value numeric
             return json.body(field.getKey(), equalTo(Integer.parseInt(field.getValue())));
@@ -50,7 +51,7 @@ public class Utils {
                 bodyJson.set(String.join("", bodyJson.get(), String.format("\"%s\": %s,\n", bodyElement.getKey(), bodyElement.getValue())));
             }
             //it is query or tag
-        } else if ((bodyElement.getKey().equals("query") || bodyElement.getKey().equals("tags"))) {
+        } else if ((bodyElement.getKey().equals("tags"))) {
             if(isLast){
                 if (bodyElement.getValue() != null && !bodyElement.getValue().isEmpty() && !bodyElement.getValue().equals("[]")) {
                     bodyElement.setValue(String.format("[\"%s\"]", bodyElement.getValue().replace(",", "\",\"")));
@@ -97,6 +98,8 @@ public class Utils {
         }
         return random;
     }
+
+
 
 
 }
